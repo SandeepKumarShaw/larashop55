@@ -11,7 +11,7 @@ class Category extends Model
     	return $this->belongsToMany('App\Product')->withTimestamps();
     }
     public function childs(){
-      return $this->hasMany('App\Category','id');
+      return $this->hasMany('App\Category','parent_id');
     }
     
 }

@@ -20,6 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');*/
 
 
+Route::get('test', function () {
+    return App\Category::with('childs')->where('parent_id',0)->get();
+});
+
 Route::view('/', 'front.index');
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
@@ -28,6 +32,9 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/products/{cat}','FrontController@productByCategory')->name('category.products');
 Route::get('search','FrontController@search')->name('products.search');
 Route::resource('products','FrontController');
+
+Route::get('/productsCat','FrontController@productsCat');
+
 
 
 

@@ -30,6 +30,40 @@ class FrontController extends Controller
         return view('front.products', compact('category','products','cat'));
 
     }
+    public function productsCat(Request $request){
+        $cat_id = $request->cat_id;
+        $priceCount = $request->price;
+
+        if($cat_id!="" && $priceCount!="0"){
+            $category = Category::where('id', $cat_id)->first();
+            $cat = $category->cat_name;
+
+              $price = explode("-",$request->price);
+              $start = $price[0];
+              $end = $price[1];
+              $products = $category->products()
+                          ->where('products.pro_price', ">=", $start)
+                          ->where('products.pro_price', "<=", $end)
+                          ->get();       
+        }else if($priceCount!="0" && $cat == ""){
+              $price = explode("-",$request->price);
+              $start = $price[0];
+              $end = $price[1];
+              $products = Product::orderBy('pro_price','desc')
+                         ->where('pro_price', ">=", $start)
+                         ->where('pro_price', "<=", $end)
+                         ->get();
+
+       }else if($cat_id!="" && $priceCount =="0"){
+         $category = Category::where('id', $cat_id)->first();
+            if ($category) {
+                $products = $category->products()->get();
+            }else{
+                $products = [];
+            } 
+       }      
+        return view('front.productsPage', compact('products')); 
+    }
     public function search(Request $request){
         $cat = $request->input('searchData');
         $products = Product::where('pro_name','LIKE', "%$cat%")->get();

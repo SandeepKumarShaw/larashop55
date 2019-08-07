@@ -82,7 +82,7 @@ $('#cat_id').select2();
 <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="card">
 
                             <div class="content">
@@ -137,7 +137,7 @@ $('#cat_id').select2();
                         </div>
                     </div>
 
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <div class="card">
                           <table width="100%" class="table table-hover table-striped" >
                             <tr >

@@ -139,7 +139,7 @@ ol.progtrckr li.progtrckr-todo:before {
           <ul>
             <li><a href="{{url('/products')}}">Products</a>
               <ul class="dropdown">
-                 @foreach(App\Category::all() as $item)
+                 <?php /*@foreach(App\Category::all() as $item)
                    @if($item->count()>0)
                    <li>
                      <a href="{{url('products')}}/{{$item->cat_name}}"><h4>{{$item->cat_name}}</h3></a>
@@ -151,8 +151,25 @@ ol.progtrckr li.progtrckr-todo:before {
                       <h4>{{$item->cat_name}}</h4></a>
                    </li>
                    @endif
-                 @endforeach
+                 @endforeach*/ ?>
 
+                 @foreach(App\Category::with('childs')
+                 ->where('parent_id',0)->get() as $item)
+                   @if($item->childs->count() > 0)
+                      <li>
+                        <a href="{{url('products')}}/{{$item->cat_name}}"><h4>{{$item->cat_name}}</h4></a>
+                      </li>
+                      @foreach($item->childs as $subMenu)
+                        <ul>
+                          <li><a href="{{url('products')}}/{{$subMenu->cat_name}}">---{{$subMenu->cat_name}}</a></li>
+                        </ul>
+                      @endforeach
+                   @else
+                      <li>
+                        <a href="{{url('products')}}/{{$item->cat_name}}"><h4>{{$item->cat_name}}</h4></a>
+                      </li>
+                   @endif
+                 @endforeach
                 </ul>
             </li>
 
