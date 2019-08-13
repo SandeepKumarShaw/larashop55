@@ -39,10 +39,13 @@
 				    <div class="col-xs-6 col-sm-3">
 						<select id="priceID">
 						    <option value="">Select Price Range</option>
-						    <option value="0-100">0-100</option>
-						    <option value="100-300">100-300</option>
-						    <option value="300-500">300-500</option>
-						    <option value="500-1000">500-1000</option>
+						    <option value="0-99">0-99</option>
+						    <option value="100-299">100-299</option>
+						    <option value="300-499">300-499</option>
+						    <option value="500-999">500-999</option>
+						    <option value="1000-3999">1000-3999</option>
+						     <option value="4000-9999">4000-9999</option>
+
 						</select>
 				    </div>
 			

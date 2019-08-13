@@ -6,7 +6,7 @@ $(document).ready(function(){
     if(price == ""){
     	price = 0;
     }   
-    alert(price);
+    //alert(price);
     $.ajax({
       type: 'get',
       dataType: 'html',

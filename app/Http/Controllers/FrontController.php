@@ -41,18 +41,15 @@ class FrontController extends Controller
               $price = explode("-",$request->price);
               $start = $price[0];
               $end = $price[1];
-              $products = $category->products()
-                          ->where('products.pro_price', ">=", $start)
-                          ->where('products.pro_price', "<=", $end)
+             $products = $category->products()
+                           ->whereBetween('pro_price', [$start, $end])                         
                           ->get();       
-        }else if($priceCount!="0" && $cat == ""){
+        }else if($priceCount!="0" && $cat_id == ""){
               $price = explode("-",$request->price);
               $start = $price[0];
-              $end = $price[1];
-              $products = Product::orderBy('pro_price','desc')
-                         ->where('pro_price', ">=", $start)
-                         ->where('pro_price', "<=", $end)
-                         ->get();
+              $end = $price[1]; 
+              $products = Product::whereBetween('pro_price', [$start, $end])->get();
+            
 
        }else if($cat_id!="" && $priceCount =="0"){
          $category = Category::where('id', $cat_id)->first();
@@ -61,6 +58,8 @@ class FrontController extends Controller
             }else{
                 $products = [];
             } 
+       }else{
+            $products = Product::all();
        }      
         return view('front.productsPage', compact('products')); 
     }
