@@ -213,6 +213,15 @@
               }
             });
         }
+    function loadUser(){
+          $.ajax({
+          type: "GET",
+          url: "<?php echo url('admin/user');?>",
+          success:function(data){
+            $('#users').html(data);
+          }
+        });
+    }    
 	</script>
 
 </html>
