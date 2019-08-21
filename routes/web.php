@@ -29,6 +29,14 @@ Route::resource('products','FrontController');
 Route::get('/productsCat','FrontController@productsCat');
 
 
+//Cart Function
+Route::get('cart','CartController@index');
+Route::get('cart/add/{id}','CartController@create');
+Route::get('cart/remove/{id}','CartController@destroy');
+
+//Route::resource('product','ProductController');
+
+
 
 
 //User Middleware Start

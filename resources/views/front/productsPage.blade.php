@@ -18,7 +18,7 @@
 	    				</span>
 	    				<div class="addcart">
 	    					<div class="price">Rs {{ $product->pro_price }}</div>
-	    					<div class="cartIco hidden-xs"><a href="/"></a></div>
+	    					<div class="cartIco hidden-xs"><a href="{{ url('/cart/add')}}/{{ $product->id}}"></a></div>
 	    				</div>
 	    			</div>
 	    		</div>

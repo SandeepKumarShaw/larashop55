@@ -180,7 +180,7 @@ ol.progtrckr li.progtrckr-todo:before {
         <div class="nav-btns">
           <div class="nav-cart">
             <a href="{{url('cart')}}"><img src="{{Config::get('app.url')}}/theme/images/cart.png"/>
-            
+            CART({{ Cart::count() }})
            </a>
           </div>
         </div>
