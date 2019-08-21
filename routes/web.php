@@ -11,18 +11,11 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');*/
 
 
-Route::get('test', function () {
+/*Route::get('test', function () {
     return App\Category::with('childs')->where('parent_id',0)->get();
-});
+});*/
 
 Route::view('/', 'front.index');
 Auth::routes();
@@ -42,7 +35,11 @@ Route::get('/productsCat','FrontController@productsCat');
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('dashboard','HomeController@index');
-    Route::get('myaccount','HomeController@myaccount');
+    Route::get('myaccount/{link?}','HomeController@myaccount');
+    Route::get('/inbox','HomeController@inbox');
+    Route::get('updateInbox', 'HomeController@updateInbox');
+
+
 
 });
 
