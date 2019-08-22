@@ -12,7 +12,12 @@
 */
 
 
-Route::view('/', 'front.index');
+    Route::view('/','front.index',[
+      //'products' => App\Product::all()
+      'products' => App\Product::where('stock','>',0)->offset(0)->limit(6)->get()
+    ]);
+
+
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
 

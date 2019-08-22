@@ -72,6 +72,7 @@ class ProductController extends Controller
             $product->pro_code   = $request->pro_code;
             $product->pro_price  = $request->pro_price;
             $product->pro_info   = $request->pro_info;
+            $product->stock   = $request->pro_stock;
             $product->pro_img    = $imageName;
             $product->save();
             $product->categories()->attach($cat_id);
@@ -147,6 +148,7 @@ class ProductController extends Controller
             $product->pro_code   = $request->pro_code;
             $product->pro_price  = $request->pro_price;
             $product->pro_info   = $request->pro_info;
+            $product->stock   = $request->pro_stock;
             $product->pro_img    = $imageName;
             $product->save();
             $product->categories()->sync($cat_id);

@@ -220,11 +220,11 @@ ol.progtrckr li.progtrckr-todo:before {
         </ul>
           <div class="mob-nav">
             <ul>
-              <li><a href="business-enquiry.php"> <i class="fa fa-th"></i> Bulk Buying</a></li>
-                    <li><a href="faq.php"><i class="fa fa-question-circle"></i> Faq's</a></li>
-                    <li><a href="testimonials.php"><i class="fa fa-users"></i> Testimonials</a></li>
-                    <li><a href="shipping-policy.php"><i class="fa fa-paper-plane"></i> Shipping Policy</a></li>
-                    <li><a href="return-policy.php"><i class="fa fa-refresh"></i> Return Policy</a></li>
+              <li><a href="theme/business-enquiry.php"> <i class="fa fa-th"></i> Bulk Buying</a></li>
+                    <li><a href="theme/faq.php"><i class="fa fa-question-circle"></i> Faq's</a></li>
+                    <li><a href="theme/testimonials.php"><i class="fa fa-users"></i> Testimonials</a></li>
+                    <li><a href="theme/shipping-policy.php"><i class="fa fa-paper-plane"></i> Shipping Policy</a></li>
+                    <li><a href="theme/return-policy.php"><i class="fa fa-refresh"></i> Return Policy</a></li>
                 <div class="clearfix"></div>
             </ul>
           </div>
@@ -293,6 +293,31 @@ ol.progtrckr li.progtrckr-todo:before {
 <script type="text/javascript" src="{{Config::get('app.url')}}/theme/js/multiple-accordion.js"></script>
 <script type="text/javascript" src="{{Config::get('app.url')}}/theme/js/jquery.nice-select.js"></script>
 <script type="text/javascript" src="{{Config::get('app.url')}}/theme/js/jquery.bootstrap-responsive-tabs.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+        $("#CartMsg").hide();
+      //Add to Cart
+      $('.add_to_cart').click(function(){
+        var id = $(this).data("id");
+              $.ajax({
+                  type:"get",
+                  data:"id=" + id,
+                  url:"{{ url('/cart/add')}}/" + id,
+                  success:function(response){
+                    $("#CartMsg").show();
+                    console.log(response);
+                    $("#CartMsg").html(response.carMsg);                      
+                    setTimeout(function() {
+                        $('#CartMsg').fadeOut('fast');
+                    }, 2000);
+
+                    $('.cartCount').html(response.cartCount);
+
+                  }
+              });
+      });
+});
+</script>
 <script>
 $(function() {
     var html = $('html, body'),
@@ -353,5 +378,6 @@ $('.responsive-tabs').responsiveTabs({
   $(this).tab('show')
 })
 </script>
+
 </body>
 </html>

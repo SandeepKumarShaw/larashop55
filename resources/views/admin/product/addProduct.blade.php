@@ -16,6 +16,7 @@ $(document).ready(function(){
     var pro_code = $("#pro_code").val();
     var pro_price = $("#pro_price").val();
     var pro_info = $("#pro_info").val();
+    var pro_stock = $("#pro_stock").val();
     var token = $("#token").val();
     //alert(cat_id);
     var ids = JSON.stringify(ids);
@@ -26,6 +27,7 @@ $(document).ready(function(){
     post_data.append( 'pro_code', pro_code );
     post_data.append( 'pro_price', pro_price );
     post_data.append( 'pro_info', pro_info );
+    post_data.append( 'pro_stock', pro_stock );
     post_data.append( '_token', token );
     post_data.append( 'ids', ids ); 
     post_data.append( 'pro_img', pro_img );   
@@ -48,6 +50,7 @@ $(document).ready(function(){
           $("#pro_code").val('');
           $("#pro_price").val('');
           $("#pro_info").val('');
+          $("#pro_stock").val('');
           //$("#cat_id").select2('val', '')
 
           $('select#cat_id').select2({
@@ -82,20 +85,25 @@ $('#cat_id').select2();
 <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-2">
-                        <div class="card">
 
-                            <div class="content">
-                            <h3>Product Image</h3>
-                            <img src="{{url('/public/img')}}/img.jpg" id="blah" alt="your image" width="100%" />                           
-                                <div class="footer" style="text-align:center">
-                                <input type="file" id="pro_img" name="pro_img" class="form-control" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
-                                </div>
+
+                  <div class="col-md-5">
+                    <div class="row">
+                      <div class="col-md-12">
+                          <div class="col-md-6">
+                            <div class="card">
+                              <div class="content">
+                                <h3>Product Image</h3>
+                                <img src="{{url('/public/img')}}/img.jpg" id="blah" alt="your image" width="100%" />                           
+                                  <div class="footer" style="text-align:center">
+                                  <input type="file" id="pro_img" name="pro_img" class="form-control" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+                                  </div>
+                              </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
+                        <div class="col-md-6">
+
+                                                  <div class="card">
 
                             <div class="content">
                             <h2>Add Product</h2>
@@ -124,6 +132,10 @@ $('#cat_id').select2();
                               <input type="text" id="pro_price" class="form-control"/>
                               <br>
 
+                              <label>Product Stock</label>
+                              <input type="number" id="pro_stock" class="form-control"/>
+                              <br>
+
                               <label>Product Info</label>
                               <textarea id="pro_info" class="form-control"></textarea>
                               <br>
@@ -135,9 +147,13 @@ $('#cat_id').select2();
                                 </div>
                             </div>
                         </div>
+                          
+                        </div>
+                      </div>
                     </div>
+                  </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <div class="card">
                           <table width="100%" class="table table-hover table-striped" >
                             <tr >

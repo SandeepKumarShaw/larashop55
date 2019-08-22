@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('pro_img');
             $table->integer('pro_price');
             $table->string('pro_info');
-            $table->integer('cat_id');
+            $table->integer('stock')->default(false);
             $table->timestamps();
         });
     }

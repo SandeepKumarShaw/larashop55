@@ -43,45 +43,61 @@
         <div class="container hidden-xs">
             <div id="hdLine"><span><h1>Our Product Range</h1></span><hr></div>
        		<div class="row">
-       			<div class="col-xs-6 col-sm-4">
-	    			<div class="itemBox bdr">
-	    				<div class="prod"><img src="{{Config::get('app.url')}}/theme/images/1.jpg" alt="" /></div>
-	    				<label>Lorem ipsum1</label>
-	    				<span class="hidden-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-	    				<div class="addcart">
-	    					<div class="price">Rs 900.00</div>
-	    					<div class="cartIco hidden-xs"><a href="/"></a></div>
-	    				</div>
-	    			</div>
-	    		</div>
-	    		<div class="col-xs-6 col-sm-4">
-	    			<div class="itemBox bdr">
-	    				<div class="prod"><img src="{{Config::get('app.url')}}/theme/images/2.jpg" alt="" /></div>
-	    				<label>Lorem ipsum2</label>
-	    				<span class="hidden-xs"> Nunc pharetra nulla nec dolor sodales</span>
-	    				<div class="addcart">
-	    					<div class="price">Rs 900.00</div>
-	    					<div class="cartIco hidden-xs"><a href="/"></a></div>
-	    				</div>
-	    			</div>
-	    		</div>
-	    		<div class="col-xs-6 col-sm-4">
-	    			<div class="itemBox bdr">
-	    				<div class="prod"><img src="{{Config::get('app.url')}}/theme/images/3.jpg" alt="" /></div>
-	    				<label>Lorem ipsum3</label>
-	    				<span class="hidden-xs">id congue mauris efficitur</span>
-	    				<div class="addcart">
-	    					<div class="price">Rs 900.00</div>
-	    					<div class="cartIco hidden-xs"><a href="/"></a></div>
-	    				</div>
-	    			</div>
-	    		</div>
+       					              <div class="alert alert-info" id="CartMsg"></div>
+
+		    	@if(count($products) == '0')
+		    	 <div class="col-md-12" align="center">
+
+			            <h1 align="center" style="margin:20px">
+			              No products found </h1>
+
+			        </div>
+		    	@else	
+			            @foreach($products as $product)
+                            @if($product->stock == 0)
+				    			<div class="col-xs-6 col-sm-4">
+						    			<div class="itemBox itemBoxoutofstock">
+						    				<div class="prod"><img src="{{ Storage::disk('public')->url('app/public/product/'.$product->pro_img) }}" alt="" /></div>
+						    				<label>{{ $product->pro_name }}</label>
+						    				<span class="hidden-xs">Code: {{$product->pro_code}}
+					              <br>
+					              {{ str_limit($product->pro_info, $limit = 50, $end = '') }}
+						    				</span>
+						    				<div class="addcart">
+						    					<div class="price">Rs {{ $product->pro_price }}</div>
+						    					<div class="cartIco hidden-xs"><a></a></div>
+						    				</div>
+						    				<div class="middle">
+											    <div class="text"><img src="{{url('/public/img')}}/hiclipart.com-id_bypfn.png" alt="" /></div>
+											</div>
+					    			</div>
+					    		</div>
+							@else
+
+			                            <div class="col-xs-6 col-sm-4">
+							    			<div class="itemBox">
+
+							    				<div class="prod"><img src="{{ Storage::disk('public')->url('app/public/product/'.$product->pro_img) }}" alt="" /></div>
+							    				<label>{{ $product->pro_name }}</label>
+							    				<span class="hidden-xs">Code: {{$product->pro_code}}
+						              <br>
+						              {{ str_limit($product->pro_info, $limit = 50, $end = '') }}
+							    				</span>
+							    				<div class="addcart">
+							    					<div class="price">Rs {{ $product->pro_price }}</div>
+							    					<div class="cartIco hidden-xs"><a href="javascript:void(0);" data-id="{{ $product->id}}" class="add_to_cart"></a></div>
+							    				</div>							    				
+							    			</div>
+							    		</div>
+							@endif 
+				    	@endforeach
+		    	@endif
        		</div>
        		<div class="row hidden-xs">
        			<div class="col-sm-12">
 		   			<div class="topSell">
 		   				<h3>DISCOVER OUR TOP SELLERS PRODUCTS FOR BODYCARE</h3>
-		   				<span class="bttn"><a href="">SHOP NOW</a></span>
+		   				<span class="bttn"><a href="{{url('/products')}}">SHOP NOW</a></span>
 		   			</div>
        		    </div>
        		</div>
@@ -109,3 +125,5 @@
     </div>
 </div>
 @endsection
+
+
