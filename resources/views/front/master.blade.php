@@ -179,8 +179,9 @@ ol.progtrckr li.progtrckr-todo:before {
         <div class="col-sm-2">
         <div class="nav-btns">
           <div class="nav-cart">
-            <a href="{{url('cart')}}"><img src="{{Config::get('app.url')}}/theme/images/cart.png"/>
-            CART({{ Cart::count() }})
+            <a href="{{url('cart')}}">
+              <img src="{{Config::get('app.url')}}/theme/images/cart.png"/>
+               CART(<span class="cartCount">{{ Cart::count() }}</span>)
            </a>
           </div>
         </div>
@@ -241,11 +242,11 @@ ol.progtrckr li.progtrckr-todo:before {
           <h5>More Info</h5>
           <div class="ft-link">
             <ul>
-              <li><a href="business-enquiry.php">Bulk Buying</a></li>
-              <li><a href="faq.php">Faq's</a></li>
-              <li><a href="testimonials.php">Testimonials</a></li>
-              <li><a href="shipping-policy.php">Shipping Policy</a></li>
-              <li><a href="return-policy.php">Return Policy</a></li>
+              <li><a href="theme/business-enquiry.php">Bulk Buying</a></li>
+              <li><a href="theme/faq.php">Faq's</a></li>
+              <li><a href="theme/testimonials.php">Testimonials</a></li>
+              <li><a href="theme/shipping-policy.php">Shipping Policy</a></li>
+              <li><a href="theme/return-policy.php">Return Policy</a></li>
             </ul>
           </div>
         </div>
@@ -253,9 +254,9 @@ ol.progtrckr li.progtrckr-todo:before {
            <h5>Resources</h5>
            <div class="ft-link">
             <ul>
-              <li><a href="ayurvedic-doshas.php">Ayurvedic Doshas</a></li>
-              <li><a href="gluten-allergy.php">Gluten Allergy</a></li>
-              <li><a href="ayurvedic-diet.php">Ayurvedic Diet</a></li>
+              <li><a href="theme/ayurvedic-doshas.php">Ayurvedic Doshas</a></li>
+              <li><a href="theme/gluten-allergy.php">Gluten Allergy</a></li>
+              <li><a href="theme/ayurvedic-diet.php">Ayurvedic Diet</a></li>
             </ul>
           </div>
         </div>

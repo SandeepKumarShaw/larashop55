@@ -255,7 +255,7 @@ padding: 10px 15px;background-color: #f5f5f5;border-radius: 3px;border: 1px soli
 .cart-qty {overflow: hidden;padding: 5px 10px 10px 0; text-transform: uppercase;}
 .cart-qty span {display: inline;margin-right: 10px;vertical-align: middle; font-weight: bold; color: #000; }
 .qty-fill {background: #fff;border: 1px solid #dedede;display: inline;
-font-size: 0.9em;margin-top: 3px;padding:4px 5px;text-align: center;width: 32px; font-weight: bold;}
+font-size: 0.9em;margin-top: 3px;padding:4px 5px;text-align: center;width: 45px; font-weight: bold;}
 .cart table {margin-bottom: 20px;width: 100%;}
 .cart table td {color: #222;padding: 5px 5px 5px 0;text-align: right;vertical-align: top;}
 .cart tr td:first-child {color: #666 !important;text-align: left !important;width: 60%;}

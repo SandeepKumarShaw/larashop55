@@ -59,6 +59,8 @@
 					</div>
 				</div>
 		    </div>
+		              <div class="alert alert-info" id="CartMsg"></div>
+
 		    <div id="productsData">
                 <div class="row top25">
 		    	@if(count($products) == '0')
@@ -80,7 +82,7 @@
 				    				</span>
 				    				<div class="addcart">
 				    					<div class="price">Rs {{ $product->pro_price }}</div>
-				    					<div class="cartIco hidden-xs"><a href="{{ url('/cart/add')}}/{{ $product->id}}"></a></div>
+				    					<div class="cartIco hidden-xs"><a href="{{ url('/cart/add')}}/{{ $product->id}}" data-id="{{ $product->id}}" class="add_to_cart"></a></div>
 				    				</div>
 				    			</div>
 				    		</div>

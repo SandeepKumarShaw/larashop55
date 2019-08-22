@@ -12,11 +12,6 @@
 */
 
 
-
-/*Route::get('test', function () {
-    return App\Category::with('childs')->where('parent_id',0)->get();
-});*/
-
 Route::view('/', 'front.index');
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
@@ -33,10 +28,8 @@ Route::get('/productsCat','FrontController@productsCat');
 Route::get('cart','CartController@index');
 Route::get('cart/add/{id}','CartController@create');
 Route::get('cart/remove/{id}','CartController@destroy');
-
-//Route::resource('product','ProductController');
-
-
+Route::get('cart/update','CartController@update');
+Route::get('cart/cartLoad','CartController@cartLoad');
 
 
 //User Middleware Start

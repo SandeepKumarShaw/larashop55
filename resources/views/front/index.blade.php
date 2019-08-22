@@ -22,17 +22,17 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-4 text-center">
-							<div class="col-icon"><img src="images/doshas.png" alt="" /></div>
+							<div class="col-icon"><img src="{{Config::get('app.url')}}/theme/images/doshas.png" alt="" /></div>
 							<h3>Ayurvedic Doshas</h3>
 							<div class="col-text">In Ayurveda, there are 3 doshas that make up one’s constitution: Vata (gas), Pitta (bile) and Kapha (mucus). Maintaining balance between these doshas ensures perfect health.</div>
 						</div>
 						<div class="col-sm-4 text-center">
-							<div class="col-icon"><img src="images/gluten-allergy.png" alt="" /></div>
+							<div class="col-icon"><img src="{{Config::get('app.url')}}/theme/images/gluten-allergy.png" alt="" /></div>
 							<h3>Gluten Allergy</h3>
 							<div class="col-text">Found in wheat, rye and barley, gluten is a common allergen linked to 50+ diseases. If you too have gluten intolerance, allergy or sensitivity, don’t worry – we can help you cure it.</div>
 						</div>
 						<div class="col-sm-4 text-center">
-							<div class="col-icon"><img src="images/diet.png" alt="" /></div>
+							<div class="col-icon"><img src="{{Config::get('app.url')}}/theme/images/diet.png" alt="" /></div>
 							<h3>Ayurvedic Diet</h3>
 							<div class="col-text">We are probably the only company that doesn’t want you to come back to us again and again. Made with love, our Ayurvedic diet can surely help you be in good health always.</div>
 						</div>

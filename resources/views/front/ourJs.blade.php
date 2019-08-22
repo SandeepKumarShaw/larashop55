@@ -1,5 +1,7 @@
 <script>
 $(document).ready(function(){
+      $("#CartMsg").hide();
+
   $("#findBtn").click(function(){
     var cat = $("#catID").val();
     var price = $('#priceID').val(); 
@@ -17,6 +19,28 @@ $(document).ready(function(){
         $("#productsData").html(response);
       }
     });
+  });
+  //Add to Cart
+  $('.add_to_cart').click(function(e){
+    e.preventDefault();
+    var oldUrl = $(this).attr("href");
+    var id = $(this).data("id");
+          $.ajax({
+              type:'get',
+              data:'id=' + id,
+              url:oldUrl,
+              success:function(response){
+                $("#CartMsg").show();
+                console.log(response);
+                $("#CartMsg").html(response.carMsg);                      
+                setTimeout(function() {
+                    $('#CartMsg').fadeOut('fast');
+                }, 2000);
+
+                $('.cartCount').html(response.cartCount);
+
+              }
+          });
   });
 });
 </script>

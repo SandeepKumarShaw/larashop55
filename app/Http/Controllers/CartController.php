@@ -18,6 +18,11 @@ class CartController extends Controller
         $cart = Cart::content();
         return view('cart.index', compact('cart'));
     }
+    public function cartLoad()
+    {
+        $cart = Cart::content();
+        return view('cart.cart', compact('cart'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -28,43 +33,11 @@ class CartController extends Controller
     {
         $Product = Product::find($id);
         Cart::add(['id' => $Product->id, 'name' => $Product->pro_name, 'qty' => 1, 'price' => $Product->pro_price,'options' => ['image' => $Product->pro_img]]);
-        return redirect('/cart');
 
+        $data['cartCount'] = Cart::count();
+        $data['carMsg'] = "Cart Added successfully";
+        return $data;
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -72,9 +45,17 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $qty = $request->newqty;
+        $rowId = $request->rowID;
+
+        Cart::update($rowId, $qty);
+        $data['cartCount'] = Cart::count();
+        $data['carMsg'] = "Cart updated successfully";
+        return $data;
+
+
     }
 
     /**
