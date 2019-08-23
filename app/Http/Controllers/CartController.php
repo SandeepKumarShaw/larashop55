@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Cart;
 use App\Product;
+use App\Order;
 
 class CartController extends Controller
 {
@@ -70,4 +71,9 @@ class CartController extends Controller
         return back();
 
     }
+/*    public function checkout(){
+        Order::createOrder();
+        return back();
+
+    }*/
 }

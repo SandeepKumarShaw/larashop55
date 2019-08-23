@@ -28,9 +28,19 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-     public function isRole(){
+    public function isRole(){
         return $this->role; // mysql table column
-      }
+    }
+    /**
+     * The orders that belong to the user.
+     */
+   /* public function orders()
+    {
+        return $this->hasMany('App\Order')->withTimestamps();
+    }*/
+    public function orders(){
+      return $this->hasMany(Order::class);
+    }
 
     /**
      * The attributes that should be cast to native types.

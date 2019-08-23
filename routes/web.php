@@ -12,10 +12,13 @@
 */
 
 
-    Route::view('/','front.index',[
-      //'products' => App\Product::all()
-      'products' => App\Product::where('stock','>',0)->offset(0)->limit(6)->get()
-    ]);
+/*Route::get('/',function(){
+    return App\User::with('orders')->get();
+});*/
+Route::view('/','front.index',[
+  //'products' => App\Product::all()
+  'products' => App\Product::where('stock','>',0)->offset(0)->limit(6)->get()
+]);
 
 
 Auth::routes();
@@ -25,8 +28,9 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/products/{cat}','FrontController@productByCategory')->name('category.products');
 Route::get('search','FrontController@search')->name('products.search');
 Route::resource('products','FrontController');
-
 Route::get('/productsCat','FrontController@productsCat');
+Route::get('details/{id}', 'FrontController@details');
+
 
 
 //Cart Function
@@ -35,6 +39,11 @@ Route::get('cart/add/{id}','CartController@create');
 Route::get('cart/remove/{id}','CartController@destroy');
 Route::get('cart/update','CartController@update');
 Route::get('cart/cartLoad','CartController@cartLoad');
+
+//Checkout Function
+Route::get('checkout', 'CheckoutController@index');
+Route::post('placeOrder', 'CheckoutController@placeOrder');
+
 
 
 //User Middleware Start

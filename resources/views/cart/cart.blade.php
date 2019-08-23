@@ -136,8 +136,8 @@
                                     </tr>
                                   </tbody>
                               </table>
-                              <input type="submit" class="btn update btn-block  " value="Continue Shopping">
-                              <input type="submit" class="btn check_out btn-block" value="Check Out">
+                        <a href="{{url('products')}}" class="btn update btn-block">Continue Shopping</a>
+                         <a href="{{url('checkout')}}" class="btn check_out btn-block">checkout</a>
                           </div>
                         </div>
                   </div>
