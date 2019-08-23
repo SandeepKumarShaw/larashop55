@@ -30,10 +30,17 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create(Request $request, $id)
     {
         $Product = Product::find($id);
-        Cart::add(['id' => $Product->id, 'name' => $Product->pro_name, 'qty' => 1, 'price' => $Product->pro_price,'options' => ['image' => $Product->pro_img]]);
+        $qty = $request->qty;
+
+        if($qty){
+          $quantity = $qty;
+        }else{
+          $quantity = 1; 
+        }
+        Cart::add(['id' => $Product->id, 'name' => $Product->pro_name, 'qty' => $quantity, 'price' => $Product->pro_price,'options' => ['image' => $Product->pro_img]]);
 
         $data['cartCount'] = Cart::count();
         $data['carMsg'] = "Cart Added successfully";

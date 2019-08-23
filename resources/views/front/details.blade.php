@@ -1,6 +1,37 @@
 @extends('front.master')
   @section('content')
-  @include('front.ourJs')
+  <script type="text/javascript">
+	$(document).ready(function(){
+      $("#CartMsg").hide();
+
+  //Add to Cart
+  $('.add_to_cart_details').click(function(){
+    var id = $(this).data("id");
+    var qty = $(".qty-fill-details").val();
+    if(qty > 0){
+    	$.ajax({
+              type:"get",
+              data:"id=" + id + "&qty=" + qty,
+              url:"{{ url('/cart/add')}}/" + id,
+              success:function(response){
+                $("#CartMsg").show();
+                console.log(response);
+                $("#CartMsg").html(response.carMsg);                      
+                setTimeout(function() {
+                    $('#CartMsg').fadeOut('fast');
+                }, 2000);
+
+                $('.cartCount').html(response.cartCount);
+
+              }
+        });
+
+    }else{
+    	alert('Please enter valid Quantity!')
+    }
+  });
+});
+</script>
 
       <div class="container">
 		<div class="wrapper">
@@ -16,6 +47,7 @@
                 </div>
 		    </div>
 		    <div class="row top20">
+		        <div class="alert alert-info" id="CartMsg"></div>
 		    	<div class="col-sm-1 col-md-1 col-lg-1 hidden-xs">
 		    	<!-- 	<div class="prodthumb">
 		    			<ul>
@@ -30,7 +62,7 @@
 		    	<div class="col-sm-6 col-md-6 col-lg-5">
 		    		<div class="prodInfo">
 		    		   	<h3>{{ $product->pro_name }}</h3>
-		    		  <!--  	<div class="rating">
+		    		   	<div class="rating">
 			    		   	<div class="fk-stars"> 
 			                    <i class="fa fa-star"></i>
 			                    <i class="fa fa-star"></i>
@@ -39,18 +71,19 @@
 			                    <i class="fa fa-star"></i> 
 			                </div>
 			                <p>Be the first to review this product : <a >Write a Review</a></p>
-		                </div> -->
+		                </div>
 		                <h2>Rs {{ $product->pro_price }}</h2>
 		                <div class="addbag">
 
 		                	@if($product->stock == 0)
 		                	    <div class="bagbtn"><a href="/">OUT OF STOCK</a></div>
 		                	@else
-		                	     <input type="number" value="1"/>
-		                	    <div class="bagbtn"><a href="javascript:void(0);" data-id="{{ $product->id}}" class="add_to_cart">Add to bag</a></div>
+		                	     <input type="number" value="1" class="qty-fill-details">
+		                	    <div class="bagbtn"><a href="javascript:void(0);" data-id="{{ $product->id}}" class="add_to_cart_details">Add to bag</a></div>
 		                	@endif
+		                	<span class="wishlist"><i class="fa fa-heart"></i></span><hr>
+		                			              
 		                </div>
-		                <div class="wishlist"><h3><strong ><i class="fa fa-heart"></i></strong><hr></h3></div>
 		                <div class="share">
 		                	<ul class="hidden-xs">
 		                		<li ><a href="/" class="fb">Facebook</a></li>
