@@ -23,7 +23,7 @@
         
 
           <div class="row top25 inboxMain text-center" >
-            <img src="{{Config::get('app.url')}}/public/img/thankyou.jpg"   />
+            <img src="{{Config::get('app.url')}}/public/img/thank-you-for-shopping-with-us.jpeg" />
          </div>
 
        

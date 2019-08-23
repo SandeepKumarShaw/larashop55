@@ -42,7 +42,7 @@ Route::get('cart/cartLoad','CartController@cartLoad');
 
 //Checkout Function
 Route::get('checkout', 'CheckoutController@index');
-Route::post('placeOrder', 'CheckoutController@placeOrder');
+//Route::post('placeOrder', 'CheckoutController@placeOrder');
 
 
 
@@ -53,7 +53,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('myaccount/{link?}','HomeController@myaccount');
     Route::get('/inbox','HomeController@inbox');
     Route::get('updateInbox', 'HomeController@updateInbox');
-
+    //placed order
+    Route::post('placeOrder', 'CheckoutController@placeOrder');
+    Route::get('thankyou', 'CheckoutController@thankyou');
 
 
 });

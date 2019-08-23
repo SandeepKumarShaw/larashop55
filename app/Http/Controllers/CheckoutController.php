@@ -40,9 +40,13 @@ class CheckoutController extends Controller
         $address->save();
 
 
-        orders::createOrder();
+        Order::createOrder();
 
         Cart::destroy();
         return redirect('thankyou');
+
+    }
+    public function thankyou(){
+        return view('thankyou');
     }
 }

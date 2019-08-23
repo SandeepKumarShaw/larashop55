@@ -34,6 +34,11 @@
               </div>
            </div>
           </div>
+          @if (Auth::check())
+              yes
+          @else
+          no
+          @endif
          
           <div class="alert alert-info" id="CartMsg"></div>
 

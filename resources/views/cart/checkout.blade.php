@@ -56,11 +56,11 @@
         <div class="col-md-6">
             <!-- First name -->
             <input type="text"  class="form-control" placeholder="Full name" name="fullname" 
-            value="{{Auth::user()->name}}">
+            value=" @if(Auth::check()){{Auth::user()->name}}@endif">
             <span style="color:red">{{ $errors->first('fullname') }}</span>
             <br>  <br>
             <input type="email"  class="form-control" placeholder="Email" name="email"
-            value="{{Auth::user()->email}}">
+            value=" @if (Auth::check()){{Auth::user()->email}}@endif">
             <span style="color:red">{{ $errors->first('email') }}</span>
             <br>  <br>
             <input type="text"  class="form-control" placeholder="Phone number" name="phone">
