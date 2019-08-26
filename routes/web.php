@@ -63,13 +63,13 @@ Route::group(['middleware' => 'auth'], function(){
 //admin middleware start
 Route::group(['prefix' => 'admin', 'middleware'=> ['auth' => 'admin']], function () {	
     Route::get('/','AdminController@index'); 
+
+    //admin user
     Route::get('/users','AdminController@user')->name('admin.users');  
     Route::get('/banUser','AdminController@banUser')->name('admin.banUser'); 
     Route::view('/user','admin.user.user',[
       'data' => App\User::all()
-    ]);     
-  
-   
+    ]);  
     //admin product    
     Route::resource('product','ProductController');
     Route::view('/prod','admin.product.products',[
@@ -80,5 +80,12 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['auth' => 'admin']], function
     Route::view('/cats','admin.category.category',[
       'data' => App\Category::all()
     ]);    
+    //admin order
+    Route::get('/orders','AdminController@orders');
+    Route::get('orderStatusUpdate','AdminController@orderStatusUpdate');
+
+        Route::get('profile','AdminController@profile');
+
+
 });
 
