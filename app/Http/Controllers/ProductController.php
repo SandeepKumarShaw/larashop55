@@ -56,11 +56,17 @@ class ProductController extends Controller
                 if(!Storage::disk('public')->exists('product')){
                     Storage::disk('public')->makeDirectory('product');
                 }
-                $productImage = Image::make($image)->resize(1600,1066)->save($imageName, 90);
+             //   $productImage = Image::make($image)->resize(1600,1066)->save($imageName, 90);
+
+                   $productImage = Image::make($image->getRealPath())->resize(1600,1066)->save( storage_path('app/public' . $imageName ), 90 );
+
+
+
                 Storage::disk('public')->put('product/'.$imageName,$productImage);
             }else{
                 $imageName = "img.jpg";
             }
+           
 
             $ids = $request->ids;
             $conver_cat_id = html_entity_decode($ids);

@@ -78,115 +78,105 @@ $(document).ready(function(){
 
  loadProduct();
 $('#cat_id').select2();
+$('.cat_id').select2();
 
 
 });
 </script>
 <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-
-
-                  <div class="col-md-5">
-                    <div class="row">
-                      <div class="col-md-12">
-                          <div class="col-md-6">
-                            <div class="card">
-                              <div class="content">
-                                <h3>Product Image</h3>
-                                <img src="{{url('/public/img')}}/img.jpg" id="blah" alt="your image" width="100%" />                           
-                                  <div class="footer" style="text-align:center">
-                                  <input type="file" id="pro_img" name="pro_img" class="form-control" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
-                                  </div>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-
-                                                  <div class="card">
-
-                            <div class="content">
-                            <h2>Add Product</h2>
-                          <input type="hidden" value="{{csrf_token()}}" id="token"/>
-
-                          <label>Categories</label>
-
-
-                          <select id="cat_id" name="cat_id[]" class="form-control" multiple="multiple">
-                            <option value="">please select a category</option>
-                            @foreach(App\Category::all() as $Categories)
-                            <option value="{{$Categories->id}}">{{$Categories->cat_name}}</option>
-                            @endforeach
-                            
-                          </select>
-                          <br>
-                              <label>Product Name</label>
-                              <input type="text" id="pro_name" class="form-control"/>
-                              <br>
-
-                              <label>Product Code</label>
-                              <input type="text" id="pro_code" class="form-control"/>
-                              <br>
-
-                              <label>Product Price</label>
-                              <input type="text" id="pro_price" class="form-control"/>
-                              <br>
-
-                              <label>Product Stock</label>
-                              <input type="number" id="pro_stock" class="form-control"/>
-                              <br>
-
-                              <label>Product Info</label>
-                              <textarea id="pro_info" class="form-control"></textarea>
-                              <br>
-                                <input type="submit" class="btn btn-success btn-fill" value="Submit" id="btn"/>
-
-
-                              <div class="footer">
-
-                                </div>
-                            </div>
-                        </div>
-                          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                    <div class="col-md-7">
-                        <div class="card">
-                          <table width="100%" class="table table-hover table-striped" >
-                            <tr >
-                          <td colspan="5" align="right"><b>Total:</b> {{App\Product::count()}}</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #ccc;">
-                              <th style="padding:10px"> Name</th>
-                              <th style="padding:10px"> Code</th>
-                              <th style="padding:10px">Catgeory</th>
-                              <th style="padding:10px">Price</th>
-                              <th>Update</th>
-                            </tr>
-                          </table>
-                            <div class="content"
-                             style="height:400px; overflow-y:scroll; overflow-x:hidden">
-
-                                <div id="products">
-                                  <img src="{{url('public/img/loading.gif')}}"
-                                  style="width:100%; text-align:center">
-                                </div>
-
-                                <div class="footer">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
+  <div class="container-fluid tm-mt-big tm-mb-big">
+    <!-- Start -->
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="tm-block-title d-inline-block">Add Product</h2>
             </div>
+          </div>
+          <input type="hidden" value="{{csrf_token()}}" id="token"/>
+          <div class="row tm-edit-product-row">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+              <div class="form-group mb-3">
+                <label for="name">Product Name</label>
+                <input type="text" id="pro_name" class="form-control"/>
+              </div>
+              <div class="form-group mb-3">
+                <label for="name">Product Price</label>
+                <input type="text" id="pro_price" class="form-control"/>
+              </div>
+              <div class="form-group mb-3">
+                <label
+                  for="description"
+                  >Description</label
+                  >
+                <textarea class="form-control" id="pro_info" rows="3"></textarea>
+              </div>
+              <div class="form-group mb-3">
+                <label for="category">Category</label>
+                <select id="cat_id" name="cat_id[]" class="form-control cat_id" multiple="multiple">
+                  <option value="">please select a category</option>
+                  @foreach(App\Category::all() as $Categories)
+                  <option value="{{$Categories->id}}">{{$Categories->cat_name}}</option>
+                  @endforeach                            
+                </select>
+              </div>
+              <div class="row">
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label for="name">SKU</label>
+                  <input type="text" id="pro_code" class="form-control"/>
+                </div>
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label for="name">Units In Stock</label>
+                  <input type="number" id="pro_stock" class="form-control"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+              <div class="tm-product-img-dummy mx-auto">
+                <img src="{{url('/public/img')}}/img.jpg" id="blah" alt="your image" width="" />
+              </div>
+              <div class="footer custom-file mt-3 mb-3" style="text-align:center">
+                <input type="file" id="pro_img" name="pro_img" class="form-control" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+              </div>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary2 btn-block text-uppercase" id="btn">Add Product</button>
+            </div>
+          </div>
         </div>
-
-
-
+      </div>
+    </div>
+    <!-- END -->
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <table width="100%" class="table table-hover table-striped" >
+            <tr >
+              <td colspan="5" align="right"><b>Total:</b> {{App\Product::count()}}</td>
+            </tr>
+            <tr style="border-bottom:1px solid #ccc;">
+              <th style="padding:10px"> Name</th>
+              <th style="padding:10px"> Code</th>
+              <th style="padding:10px">Catgeory</th>
+              <th style="padding:10px">Price</th>
+              <th>Update</th>
+            </tr>
+          </table>
+          <div class="content"
+            style="height:400px; overflow-y:scroll; overflow-x:hidden">
+            <div id="products">
+              <img src="{{url('public/img/loading.gif')}}"
+                style="width:100%; text-align:center">
+            </div>
+            <div class="footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection

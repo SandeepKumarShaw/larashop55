@@ -40,6 +40,66 @@
     
     }
     .row_body{ border-bottom:1px solid #efefef}
+    .tm-bg-primary-dark {
+    background-color: #fff;
+}
+.tm-mb-big {
+    margin-bottom: 60px;
+}
+
+.tm-product-img-dummy {
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+.tm-product-img-dummy img {
+    height: 300px;
+    width: 100%;
+   
+}
+.custom-file {
+    position: relative;
+    display: inline-block;
+    width: 94%;
+    height: calc(2.25rem + 2px);
+    margin-bottom: 0;
+    margin-top: 20px;
+}
+.tm-block {
+    padding: 40px;
+    -webkit-box-shadow: 1px 1px 5px 0 #455c71;
+    -moz-box-shadow: 1px 1px 5px 0 #455c71;
+    box-shadow: 1px 1px 5px 0 #455c71;
+    min-height: 350px;
+    height: 100%;
+    max-height: 450px;
+}
+.tm-block-h-auto {
+    min-height: 1px;
+    max-height: none;
+    height: auto;
+}
+input#pro_img {
+    border: 2px solid #049F0C;
+    font-weight: 600;
+    border-radius: 0;
+    max-width: 100%;
+    margin: 0px 15px 0px;
+}
+.btn-primary2 {
+    color: #fff;
+    background-color: #049F0C;
+    border: 2px solid #049F0C;
+    font-size: 90%;
+    font-weight: 600;
+}
+.btn {
+    border-radius: 0;
+    padding: 13px 28px;
+    transition: all 0.2s ease;
+    max-width: 100%;
+}
     </style>
 </head>
 <body>
