@@ -53,9 +53,19 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('myaccount/{link?}','HomeController@myaccount');
     Route::get('/inbox','HomeController@inbox');
     Route::get('updateInbox', 'HomeController@updateInbox');
+
     //placed order
     Route::post('placeOrder', 'CheckoutController@placeOrder');
     Route::get('thankyou', 'CheckoutController@thankyou');
+
+    // users - orders details
+    Route::get('orderDetails/{id}',function($id){
+      return view('myaccount.order');
+    });
+    Route::get('trackOrder/{id}',function($id){
+      $orderData = App\Order::where('id',$id)->get();
+      return view('myaccount.track',['data' => $orderData]);
+    });
 
 
 });
