@@ -31,6 +31,8 @@ Route::resource('products','FrontController');
 Route::get('/productsCat','FrontController@productsCat');
 Route::get('details/{id}', 'FrontController@details');
 
+Route::post('prodAjax', 'FrontController@prodAjax')->name('products.prodAjax');
+
 
 
 //Cart Function

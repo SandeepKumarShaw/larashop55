@@ -71,51 +71,110 @@
 			              No products found </h1>
 
 			        </div>
-		    	@else	
-			            @foreach($products as $product)
-				    		@if($product->stock == 0)
-				    			<div class="col-xs-6 col-sm-4">
-						    			<div class="itemBox itemBoxoutofstock">
-						    				<div class="prod"><a href="{{url('details')}}/{{$product->id}}"><img src="{{ Storage::disk('public')->url('app/public/product/'.$product->pro_img) }}" alt="" /></a></div>
-				    				<label><a href="{{url('details')}}/{{$product->id}}">{{ $product->pro_name }}</a></label>
-						    				<span class="hidden-xs">Code: {{$product->pro_code}}
-					              <br>
-					              {{ str_limit($product->pro_info, $limit = 50, $end = '') }}
-						    				</span>
-						    				<div class="addcart">
-						    					<div class="price">Rs {{ $product->pro_price }}</div>
-						    					<div class="cartIco hidden-xs"><a></a></div>
-						    				</div>
-						    				<div class="middle">
-											    <div class="text"><img src="{{url('/public/img')}}/hiclipart.com-id_bypfn.png" alt="" /></div>
-											</div>
-					    			</div>
-					    		</div>
-							@else
-
-			                            <div class="col-xs-6 col-sm-4">
-							    			<div class="itemBox">
-
+		    	@else
+			    	<div id="load-data">	
+				            @foreach($products as $product)
+					    		@if($product->stock == 0)
+					    			<div class="col-xs-6 col-sm-4">
+							    			<div class="itemBox itemBoxoutofstock">
 							    				<div class="prod"><a href="{{url('details')}}/{{$product->id}}"><img src="{{ Storage::disk('public')->url('app/public/product/'.$product->pro_img) }}" alt="" /></a></div>
-				    				<label><a href="{{url('details')}}/{{$product->id}}">{{ $product->pro_name }}</a></label>
+					    				<label><a href="{{url('details')}}/{{$product->id}}">{{ $product->pro_name }}</a></label>
 							    				<span class="hidden-xs">Code: {{$product->pro_code}}
 						              <br>
 						              {{ str_limit($product->pro_info, $limit = 50, $end = '') }}
 							    				</span>
 							    				<div class="addcart">
 							    					<div class="price">Rs {{ $product->pro_price }}</div>
-							    					<div class="cartIco hidden-xs"><a href="javascript:void(0);" data-id="{{ $product->id}}" class="add_to_cart"></a></div>
-							    				</div>							    				
-							    			</div>
-							    		</div>
-							@endif 
-				    	@endforeach
+							    					<div class="cartIco hidden-xs"><a></a></div>
+							    				</div>
+							    				<div class="middle">
+												    <div class="text"><img src="{{url('/public/img')}}/hiclipart.com-id_bypfn.png" alt="" /></div>
+												</div>
+						    			</div>
+						    		</div>
+								@else
+
+				                            <div class="col-xs-6 col-sm-4">
+								    			<div class="itemBox">
+
+								    				<div class="prod"><a href="{{url('details')}}/{{$product->id}}"><img src="{{ Storage::disk('public')->url('app/public/product/'.$product->pro_img) }}" alt="" /></a></div>
+					    				<label><a href="{{url('details')}}/{{$product->id}}">{{ $product->pro_name }}</a></label>
+								    				<span class="hidden-xs">Code: {{$product->pro_code}}
+							              <br>
+							              {{ str_limit($product->pro_info, $limit = 50, $end = '') }}
+								    				</span>
+								    				<div class="addcart">
+								    					<div class="price">Rs {{ $product->pro_price }}</div>
+								    					<div class="cartIco hidden-xs"><a href="javascript:void(0);" data-id="{{ $product->id}}" class="add_to_cart"></a></div>
+								    				</div>							    				
+								    			</div>
+								    		</div>
+								@endif
+
+					    	@endforeach
+
+				    		<div id="loadMore" style="">
+						      <a href="javascript:void(0);" class="last_prod_id" data-pid="{{ $product->id }}" data-token="{{csrf_token()}}">Load More</a>
+						    </div> 
+	                </div>
 		    	@endif
 		    	</div>
+		    	
 		    </div>
+		    
 		</div>
 	</div>		
 </div>
+<style type="text/css" media="screen">
+	#loadMore {
+    padding-bottom: 30px;
+    padding-top: 30px;
+    text-align: center;
+    width: 100%;
+}
+#loadMore a {
+    background: #042a63;
+    border-radius: 3px;
+    color: white;
+    display: inline-block;
+    padding: 10px 30px;
+    transition: all 0.25s ease-out;
+    -webkit-font-smoothing: antialiased;
+}
+#loadMore a:hover {
+    background-color: #021737;
+}	
+</style>
+<script type="text/javascript">
+	$( document ).ready(function () {
+        $(document).on('click', '.last_prod_id', function(){  
+           var last_prod_id = $(this).data("pid");  
+           var token = $(this).data("token");
+           //alert(last_prod_id);
+            $('#loadMore').html("Loading...");  
+	           $.ajax({  
+	                url:"{{ route('products.prodAjax')}}",  
+	                method:"POST",  
+	                data:{last_prod_id:last_prod_id, _token: token },  
+	                dataType:"text",  
+	                success:function(data)  
+	                {  
+
+	                	console.log(data);
+	                     if(data != '')  
+	                     {  
+	                          $('#loadMore').remove();  
+	                          $('#load-data').append(data);  
+	                     }  
+	                     else  
+	                     {  
+	                          $('.last_prod_id').html("No Data");  
+	                     }  
+	                }  
+	           });  
+        });
+  });
+</script>
 
 @endsection
 
