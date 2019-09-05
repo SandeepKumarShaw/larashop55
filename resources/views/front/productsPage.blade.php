@@ -33,6 +33,7 @@
 
 	    </div>
 	@else	
+	    <div id="load-data">
 	        @foreach($products as $product)
       			@if($product->stock == 0)
 		    			<div class="col-xs-6 col-sm-4">
@@ -70,5 +71,54 @@
 			    		</div>
 					@endif 
 	    	@endforeach
+	    </div>	
+	    	
 	@endif
 </div>
+<div class="ajax-load text-center" style="display:none">
+<p><img src="{{url('/public/img')}}/loader.gif"></p>
+</div>
+<script type="text/javascript">
+  var page = 1;
+  $(window).scroll(function() {
+      if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+          page++;
+          loadMoreData(page);
+      }
+  });
+  function loadMoreData(page){
+  	var cat = $("#catID").val();
+    var price = $('#priceID').val(); 
+    if(price == ""){
+    	price = 0;
+    }   
+
+    $.ajax({
+            url: 'productsCat/?page=' + page,
+            method:"get",  
+            dataType:"text",  
+             data: 'cat_id=' + cat + '&price=' + price,
+              beforeSend: function()
+              {
+                  $('.ajax-load').show();
+              }
+          })
+          .done(function(data)
+          {
+              var parsed = $.parseHTML(data);
+                var result = $(parsed).find("#load-data").html();
+              console.log(result);
+            //console.log(data.html);
+              if(data == " "){
+                  $('.ajax-load').html("No more records found");
+                  return;
+              }
+              $('.ajax-load').hide();
+              $("#load-data").append(result);
+          })
+          .fail(function(jqXHR, ajaxOptions, thrownError)
+          {
+                alert('server not responding...');
+          });
+  }
+</script>

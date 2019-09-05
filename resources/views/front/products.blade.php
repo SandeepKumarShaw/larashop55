@@ -74,6 +74,7 @@
 		    	@else
 			    	<div id="load-data">	
 				            @foreach($products as $product)
+
 					    		@if($product->stock == 0)
 					    			<div class="col-xs-6 col-sm-4">
 							    			<div class="itemBox itemBoxoutofstock">
@@ -110,71 +111,75 @@
 								    			</div>
 								    		</div>
 								@endif
-
 					    	@endforeach
-
-				    		<div id="loadMore" style="">
-						      <a href="javascript:void(0);" class="last_prod_id" data-pid="{{ $product->id }}" data-token="{{csrf_token()}}">Load More</a>
-						    </div> 
 	                </div>
+	                
 		    	@endif
 		    	</div>
-		    	
+		    	<div class="ajax-load text-center" style="display:none">
+						<p><img src="{{url('/public/img')}}/loader.gif"></p>
+				</div>
 		    </div>
 		    
 		</div>
 	</div>		
 </div>
+
 <style type="text/css" media="screen">
-	#loadMore {
-    padding-bottom: 30px;
-    padding-top: 30px;
-    text-align: center;
-    width: 100%;
-}
-#loadMore a {
-    background: #042a63;
-    border-radius: 3px;
-    color: white;
-    display: inline-block;
-    padding: 10px 30px;
-    transition: all 0.25s ease-out;
-    -webkit-font-smoothing: antialiased;
-}
-#loadMore a:hover {
-    background-color: #021737;
+
+.ajax-load.text-center {
+  z-index: 999;
+  height: 5em;
+  width: 5em;
+  overflow: visible;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }	
 </style>
 <script type="text/javascript">
-	$( document ).ready(function () {
-        $(document).on('click', '.last_prod_id', function(){  
-           var last_prod_id = $(this).data("pid");  
-           var token = $(this).data("token");
-           //alert(last_prod_id);
-            $('#loadMore').html("Loading...");  
-	           $.ajax({  
-	                url:"{{ route('products.prodAjax')}}",  
-	                method:"POST",  
-	                data:{last_prod_id:last_prod_id, _token: token },  
-	                dataType:"text",  
-	                success:function(data)  
-	                {  
+  var page = 1;
+                    //$('.ajax-load').show();
 
-	                	console.log(data);
-	                     if(data != '')  
-	                     {  
-	                          $('#loadMore').remove();  
-	                          $('#load-data').append(data);  
-	                     }  
-	                     else  
-	                     {  
-	                          $('.last_prod_id').html("No Data");  
-	                     }  
-	                }  
-	           });  
-        });
+  $(window).scroll(function() {
+      if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+          page++;
+          loadMoreData(page);
+      }
   });
+  function loadMoreData(page){
+    $.ajax({
+            url: '?page=' + page,
+            method:"get",  
+            dataType:"text",  
+              beforeSend: function()
+              {
+                  $('.ajax-load').show();
+              }
+          })
+          .done(function(data)
+          {
+              var parsed = $.parseHTML(data);
+                var result = $(parsed).find("#load-data").html();
+              console.log(result);
+            //console.log(data.html);
+              if(data == " "){
+                  $('.ajax-load').html("No more records found");
+                  return;
+              }
+              $('.ajax-load').hide();
+              $("#load-data").append(result);
+          })
+          .fail(function(jqXHR, ajaxOptions, thrownError)
+          {
+                alert('server not responding...');
+          });
+  }
 </script>
+
+
 
 @endsection
 

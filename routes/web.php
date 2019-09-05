@@ -16,7 +16,6 @@
     return App\User::with('orders')->get();
 });*/
 Route::view('/','front.index',[
-  //'products' => App\Product::all()
   'products' => App\Product::where('stock','>',0)->offset(0)->limit(6)->get()
 ]);
 
@@ -30,9 +29,6 @@ Route::get('search','FrontController@search')->name('products.search');
 Route::resource('products','FrontController');
 Route::get('/productsCat','FrontController@productsCat');
 Route::get('details/{id}', 'FrontController@details');
-
-Route::post('prodAjax', 'FrontController@prodAjax')->name('products.prodAjax');
-
 
 
 //Cart Function
@@ -52,7 +48,16 @@ Route::get('checkout', 'CheckoutController@index');
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('dashboard','HomeController@index');
+
+
+
     Route::get('myaccount/{link?}','HomeController@myaccount');
+    Route::post('saveAddress', 'HomeController@saveAddress');
+
+
+
+
+
     Route::get('/inbox','HomeController@inbox');
     Route::get('updateInbox', 'HomeController@updateInbox');
 
@@ -96,8 +101,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['auth' => 'admin']], function
     Route::get('/orders','AdminController@orders');
     Route::get('orderStatusUpdate','AdminController@orderStatusUpdate');
 
-        Route::get('profile','AdminController@profile');
-
+    Route::get('profile','AdminController@profile');
 
 });
 

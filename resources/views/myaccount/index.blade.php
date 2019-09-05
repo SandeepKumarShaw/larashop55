@@ -17,7 +17,6 @@
             </div>
          </div>
         </div>
-
         <div class="row top25">
             <div class="panel itemBox">
                 <div class="panel-header">
@@ -60,7 +59,10 @@
                       <div id="profile" class="tab-pane fade in active">
                           <h3>Personal Details</h3>
                             <form action="{{url('/saveAddress')}}" method="post">
+                              
                                   <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                                      <input type="hidden" name="user_id" value="{{Auth::user()->id}}"/>
+
                              
                               <input type="text" name="name" class="form-control"
                                value="{{AUth::user()->name}}" placeholder="Full Name"/>
@@ -68,26 +70,25 @@
 
                             
                                <input type="text" name="email" class="form-control"
-                               value="{{AUth::user()->email}}"
-                               readonly style="background-color:#efefef" placeholder="email"/>
+                               value="{{AUth::user()->email}}" style="background-color:#efefef" placeholder="email"/>
                                <br>
 
                                 
-                                <input type="text" name="city" class="form-control"
+                                <input type="text" name="city" class="form-control" value="{{ $address[0]->city }}"
                                 placeholder="City"/>
                                 <br>
                                 
                                 
-                                <input type="text" name="phoneNumber"  class="form-control"
+                                <input type="text" name="phoneNumber"  class="form-control" value="{{ $address[0]->phone }}"
                                 placeholder="Phone Number"/>
                                 <br>
 
-                                 <input type="text"  class="form-control" placeholder="State" name="state">
+                                 <input type="text"  class="form-control" placeholder="State" value="{{ $address[0]->state }}" name="state">
                                 <br>
-                                <input type="text"  class="form-control" placeholder="Country" name="country">
+                                <input type="text"  class="form-control" placeholder="Country" value="{{ $address[0]->country }}" name="country">
                                 <br>
                                 <textarea  class="form-control" rows="4" placeholder="Full Address"
-                                name="full_address"></textarea>
+                                name="full_address">{{ $address[0]->fullAddress }}</textarea>
                                 <br>
                                <input type="submit" class="btn btn-primary btn-block" value="Update">
                             </form>
@@ -131,10 +132,12 @@
                     </ul>
 
                     <div class="tab-content">
-                      <div id="profile" class="tab-pane fade in active">
+                        <div id="profile" class="tab-pane fade in active">
                           <h3>Personal Details</h3>
                             <form action="{{url('/saveAddress')}}" method="post">
                                   <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                                      <input type="hidden" name="user_id" value="{{Auth::user()->id}}"/>
+
                              
                               <input type="text" name="name" class="form-control"
                                value="{{AUth::user()->name}}" placeholder="Full Name"/>
@@ -147,21 +150,21 @@
                                <br>
 
                                 
-                                <input type="text" name="city" class="form-control"
+                                <input type="text" name="city" class="form-control" value="{{ $address[0]->city }}"
                                 placeholder="City"/>
                                 <br>
                                 
                                 
-                                <input type="text" name="phoneNumber"  class="form-control"
+                                <input type="text" name="phoneNumber"  class="form-control" value="{{ $address[0]->phone }}"
                                 placeholder="Phone Number"/>
                                 <br>
 
-                                 <input type="text"  class="form-control" placeholder="State" name="state">
+                                 <input type="text"  class="form-control" placeholder="State" value="{{ $address[0]->state }}" name="state">
                                 <br>
-                                <input type="text"  class="form-control" placeholder="Country" name="country">
+                                <input type="text"  class="form-control" placeholder="Country" value="{{ $address[0]->country }}" name="country">
                                 <br>
                                 <textarea  class="form-control" rows="4" placeholder="Full Address"
-                                name="full_address"></textarea>
+                                name="full_address">{{ $address[0]->fullAddress }}</textarea>
                                 <br>
                                <input type="submit" class="btn btn-primary btn-block" value="Update">
                             </form>
