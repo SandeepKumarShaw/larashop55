@@ -108,4 +108,9 @@ class CategoryController extends Controller
         return response()->json(['success'=>'Record is successfully Deleted']);        
         //return redirect()->route('admin.category.index');
     }
+    public function cats(){
+        $data = Category::all();
+        return view('admin.category.category',compact('data'));
+
+    }
 }

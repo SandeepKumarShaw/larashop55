@@ -186,4 +186,9 @@ class ProductController extends Controller
         return response()->json(['success'=>'Record is successfully Deleted']);        
         //return redirect()->route('admin.category.index');
     }
+    public function prod(){
+        $data = Product::all();
+        return view('admin.product.products',compact('data'));
+
+    }
 }

@@ -62,5 +62,9 @@ class AdminController extends Controller
               return response()->json(['success'=>$msg]);
       }
     }
+    public function usersData(){
+      $data = User::all();
+      return view('admin.user.user',compact('data'));
+    }
     
 }

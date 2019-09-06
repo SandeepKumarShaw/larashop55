@@ -36,11 +36,7 @@ class HomeController extends Controller
     }
     public function saveAddress(Request $request){
         $id = $request->user_id;
-        //$address = Address::where('userid', '=', $id)->get();
-
-       // $address = Address::where('userid',$userid)->get();
-
-    /*   $this->validate($request, [
+       $this->validate($request, [
             'name' => 'required|min:5|max:35',
             'phoneNumber' => 'required|numeric',
             'email' => 'required|email',
@@ -48,12 +44,11 @@ class HomeController extends Controller
             'state' => 'required|min:5|max:25',
             'country' => 'required',
             'full_address' => 'required'
-            ]);*/
+            ]);
 
        // $address = Address::findOrFail($id)->get('userid', $id);
 $address = Address::where('userid',$id)->first();
 
-                //dd($address);
 
         $address->fullname = $request->name;
         $address->email = $request->email;

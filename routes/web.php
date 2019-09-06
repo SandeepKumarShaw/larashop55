@@ -84,19 +84,25 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['auth' => 'admin']], function
     //admin user
     Route::get('/users','AdminController@user')->name('admin.users');  
     Route::get('/banUser','AdminController@banUser')->name('admin.banUser'); 
-    Route::view('/user','admin.user.user',[
-      'data' => App\User::all()
-    ]);  
-    //admin product    
+    Route::get('/user','AdminController@usersData'); 
+    /* Route::view('/user','admin.user.user',[
+          'data' => App\User::all()
+        ]);  */
+
+    //admin product   
+    Route::get('/prod','ProductController@prod'); 
     Route::resource('product','ProductController');
-    Route::view('/prod','admin.product.products',[
-      'data' => App\Product::all()
-    ]);
+    /*Route::view('/prod','admin.product.products',[
+          'data' => App\Product::all()
+        ]);*/
+
     //admin category
+    Route::get('/cats','CategoryController@cats');
     Route::resource('category','CategoryController');
-    Route::view('/cats','admin.category.category',[
-      'data' => App\Category::all()
-    ]);    
+    /*Route::view('/cats','admin.category.category',[
+          'data' => App\Category::all()
+        ]); */  
+
     //admin order
     Route::get('/orders','AdminController@orders');
     Route::get('orderStatusUpdate','AdminController@orderStatusUpdate');
