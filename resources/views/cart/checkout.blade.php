@@ -10,90 +10,57 @@
   			       <ul>
   			          <li><a href="{{url('/')}}">Home </a></li>
                    <li><span class="dot">/</span>
-                    <a href="">cart</a>
+                    <a href="">checkout</a>
   			        </ul>
               </div>
            </div>
   		    </div>
-            @if(Cart::count()!="0")
-          <!-- design of cart page -->
-          <div class="row top20 hidden-xs">
-                <div class="col-sm-3">
-                  <div class="wht-box">
-                    <div class="wht-boxHd">Shopping Cart</div>
-                    <div class="bwhtlk-boxTxt hidden-sm">Do you want to look on order?</div>
-                    
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <div class="blk-box">
-                    <div class="blk-boxHd">Billing &amp; Shipping</div>
-                    <div class="blk-boxTxt hidden-sm">Where should we send this order?</div>
-                    <div class="arrow-down"></div>
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <div class="wht-box">
-                    <div class="wht-boxHd">Order Review</div>
-                    <div class="wht-boxTxt hidden-sm">How do you want to pay for your order?</div>
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <div class="wht-box">
-                    <div class="wht-boxHd">Confirmation</div>
-                    <div class="wht-boxTxt hidden-sm">Confirm your order</div>
-                  </div>
-                </div>
-            </div>
-         </div>
-<br><hr>
+  
 <div class="row ">
-
-<form action="{{url('/placeOrder')}}" method="post">
+ @if(Cart::count()!="0")
+ <form id="example-advanced-form" action="{{url('/placeOrder')}}" method="post">
 <input type="hidden" value="{{csrf_token()}}" name="_token"/>
-<h3 class="text-center">Fill billing address </h3>
-  <div class="form-group">
+    <h3>BILLING & SHIPPING</h3>
+    <fieldset>
+        <legend>Fill billing address</legend>
+          <div class="form-group">
         <div class="col-md-6">
             <!-- First name -->
-            <input type="text"  class="form-control" placeholder="Full name" name="fullname" 
+            <input type="text" class="form-control" placeholder="Full name" id="fullname" name="fullname" 
             value=" @if(Auth::check()){{Auth::user()->name}}@endif">
             <span style="color:red">{{ $errors->first('fullname') }}</span>
             <br>  <br>
-            <input type="email"  class="form-control" placeholder="Email" name="email"
+            <input type="email"  class="form-control" placeholder="Email" id="email" name="email"
             value=" @if (Auth::check()){{Auth::user()->email}}@endif">
             <span style="color:red">{{ $errors->first('email') }}</span>
             <br>  <br>
-            <input type="text"  class="form-control" placeholder="Phone number" name="phone">
+            <input type="text"  class="form-control" placeholder="Phone number" id="phone" name="phone">
             <span style="color:red">{{ $errors->first('phone') }}</span>
             <br>  <br>
-            <input type="text"  class="form-control" placeholder="City name" name="city">
+            <input type="text"  class="form-control" placeholder="City name" id="city" name="city">
             <span style="color:red">{{ $errors->first('city') }}</span>
         </div>
         <div class="col-md-6">
             <!-- Last name -->
-            <input type="text"  class="form-control" placeholder="State" name="state">
+            <input type="text"  class="form-control" placeholder="State" id="state" name="state">
             <span style="color:red">{{ $errors->first('state') }}</span>
             <br>  <br>
-            <input type="text"  class="form-control" placeholder="Country" name="country">
+            <input type="text"  class="form-control" placeholder="Country" id="country" name="country">
             <span style="color:red">{{ $errors->first('country') }}</span>
             <br>  <br>
-            <textarea  class="form-control" rows="5" placeholder="Full Address"
+            <textarea  class="form-control" rows="5" id="fullAddress" placeholder="Full Address"
              name="fullAddress"></textarea>
              <span style="color:red">{{ $errors->first('fullAddress') }}</span>
         </div>
 
        
-    </div>
-    
-   
-
-</div>
-<br> <hr>
-                <div class="row">
-                  <div class="cart">
-                      <div class="col-sm-12">
-                        <h3 class="text-center">Shopping Basket</h3>
-                        <div class="row">
+    </div>        
+    </fieldset>
+ 
+    <h3>ORDER REVIEW</h3>
+    <fieldset>
+        <legend>Shopping Basket</legend>
+                                <div class="row">
                             <div class="col-sm-8">
                               @if(isset($msg))
                               <div class="alert alert-info">{{$msg}}</div>
@@ -162,35 +129,111 @@
                                       <td>$ {{Cart::total()}}</td>
                                     </tr>
                                   </tbody>
-                                </table>
-                               
-                                <input type="submit"
-                                class="btn check_out btn-block"
-                                value="Place order"/>
+                                </table>                              
+                                
                                 </div>
                               </div>
-                        </div>
-                      </div>
-                      <div class="clearfix"></div>
-                  </div>
-                </div>
-                @else
-                <div class="row">
-                   <div class="col-md-2 col-md-offset-5 top25">
-                    <img src="{{Config::get('app.url')}}/public/img/empty-cart-page-doodle.png"
-                    class="img-response"/>
-                    <br><br>
-                    <p style="text-align:center">Nothing in the bag<br><br>
-                    <a href="{{url('products')}}"
-                    class="btn btn-fill btn-primary">Continue Shopping</a>
-                    </p>
-
-                  </div>
-                </div>
-                @endif
-
+                        </div>       
+    </fieldset>
+ 
+    <h3>Payment</h3>
+    <fieldset>
+        <legend>You are to young</legend>
+ 
+        <p>Please go away ;-)</p>
+    </fieldset>
+ 
+    <h3>CONFIRMATION</h3>
+    <fieldset>
+        <legend>Terms and Conditions</legend> 
+        <input id="acceptTerms-2" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms-2">I agree with the Terms and Conditions.</label>
+        <input type="submit" class="btn check_out btn-block" value="Place order"/>
+    </fieldset>
 </form>
-  <!-- design of cart page  end -->
+ @else
+  <div class="row">
+     <div class="col-md-2 col-md-offset-5 top25">
+      <img src="{{Config::get('app.url')}}/public/img/empty-cart-page-doodle.png"
+      class="img-response"/>
+      <br><br>
+      <p style="text-align:center">Nothing in the bag<br><br>
+      <a href="{{url('products')}}"
+      class="btn btn-fill btn-primary">Continue Shopping</a>
+      </p>
+
+    </div>
+  </div>
+  @endif
+  </div>
+
+    <script src="{{Config::get('app.url')}}/public/js/jquery.validate.min.js"></script>
+    <script src="{{Config::get('app.url')}}/public/js/jquery.steps.js"></script>
+    <link href="{{Config::get('app.url')}}/public/css/jquery.steps.css" rel="stylesheet">
+
+
+<script type="text/javascript">
+  
+var form = $("#example-advanced-form").show();
+ 
+form.steps({
+    headerTag: "h3",
+    bodyTag: "fieldset",
+    transitionEffect: "slideLeft",
+    onStepChanging: function (event, currentIndex, newIndex)
+    {
+        // Allways allow previous action even if the current form is not valid!
+        if (currentIndex > newIndex)
+        {
+            return true;
+        }
+        // Forbid next action on "Warning" step if the user is to young
+        if (newIndex === 3 && Number($("#age-2").val()) < 18)
+        {
+            return false;
+        }
+        // Needed in some cases if the user went back (clean up)
+        if (currentIndex < newIndex)
+        {
+            // To remove error styles
+            form.find(".body:eq(" + newIndex + ") label.error").remove();
+            form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+        }
+        form.validate().settings.ignore = ":disabled,:hidden";
+        return form.valid();
+    },
+    onStepChanged: function (event, currentIndex, priorIndex)
+    {
+        // Used to skip the "Warning" step if the user is old enough.
+        if (currentIndex === 2 && Number($("#age-2").val()) >= 18)
+        {
+            form.steps("next");
+        }
+        // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+        if (currentIndex === 2 && priorIndex === 3)
+        {
+            form.steps("previous");
+        }
+    },
+    onFinishing: function (event, currentIndex)
+    {
+        form.validate().settings.ignore = ":disabled";
+        return form.valid();
+    },
+    onFinished: function (event, currentIndex)
+    {
+        alert("Submitted!");
+    }
+}).validate({
+    errorPlacement: function errorPlacement(error, element) { element.before(error); },
+    rules: {
+        confirm: {
+            equalTo: "#password-2"
+        }
+    }
+});
+
+
+</script>
 </div>
 </div>
 </div>
