@@ -7,6 +7,9 @@ use Cart;
 use Auth;
 use App\Order;
 use App\Address;
+//use Stripe\Stripe;
+//use Stripe\Charge;
+use Stripe;
 
 class CheckoutController extends Controller
 {
@@ -16,6 +19,10 @@ class CheckoutController extends Controller
           ]);
     }
     public function placeOrder(Request $request){
+
+
+        
+
 
         $this->validate($request, [
             'fullname' => 'required|min:5|max:35',
@@ -39,10 +46,47 @@ class CheckoutController extends Controller
         $address->fullAddress = $request->fullAddress;
         $address->save();
 
+        /*------ stripe payment-------*/
+        $cardExpiry = explode("/", $request->cardExpiry);
+        $exp_month = $cardExpiry[0];
+        $exp_year = $cardExpiry[1];       
 
-        Order::createOrder();
+        $stripe = Stripe\Stripe::setApiKey('sk_test_K0ThsZWtj2g1AorbBQDcV2h5');
+        try {
+            $token = $stripe->tokens()->create([
+                'card' => [
+                    'number'    => $request->cardNumber,
+                    'exp_month' => $exp_month,
+                    'exp_year'  => $exp_year,
+                    'cvc'       => $request->cardCVC,
+                ],
+            ]);
 
-        Cart::destroy();
+dd($token);
+
+
+            if (!isset($token['id'])) {
+                return Redirect::to('strips')->with('Token is not generate correct');
+            }
+            $charge = $stripe->charges()->create([
+                'card' => $token['id'],
+                'currency' => 'USD',
+                'amount'   => $request->cardTotal,
+                'description' => 'Register Event',
+            ]);
+            $charge = Charge::create(array(
+                'amount' => $request->cardTotal,
+                "source" => $token,
+                'currency' => 'usd'
+            ));
+         
+             return 'Payment Success';
+            } catch (\Exception $ex) {
+                return $ex->getMessage();
+            }
+        /*Order::createOrder();
+
+        Cart::destroy();*/
         return redirect('thankyou');
 
     }

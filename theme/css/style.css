@@ -276,8 +276,12 @@ ul.user_option{ list-style: none;}
 .add-address{width: 80%; display: block; border-left: 1px solid #dfdfdf; padding: 2em; min-height: 150px; }
 .update {background: #fff;border: 2px solid #888;color: #666;padding: 0.8em;text-transform: uppercase;}
 .update:hover, .update:focus, .update.focus {color: #888; border: 2px solid #888;}
-.check_out {background: #000;border: medium none; -moz-border-radius: 5px;-webkit-border-radius: 5px;-khtml-border-radius: 5px;border-radius: 5px;color: #ffffff;letter-spacing: 1px;margin-top: 0;padding: 0.8em 2em;text-transform: uppercase; margin-top: 10px;}
-.check_out:hover, .check_out:focus, .check_out.focus {background: #F8EF4A;color: #000;}
+.check_out:hover, .check_out:focus, .check_out.focus {background: #F8EF4A;color: #fff;}
+
+.check_out {background: #677d04;border: medium none;-moz-border-radius: 5px;-webkit-border-radius: 5px;-khtml-border-radius: 5px;color: #ffffff;text-transform: uppercase;
+}
+
+
 .text-field{ border:1px solid #dedede; padding: 8px 12px;  margin-bottom: 10px; border-radius: none; width: 100%;}
 .txt-area{ border:1px solid #dedede; padding: 8px 12px;  margin-bottom: 10px; border-radius: none; width: 100%; height: 100px;}
 /*==============cart ends  =================*/
