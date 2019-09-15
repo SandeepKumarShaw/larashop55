@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('pro_code');
             $table->string('pro_img');
             $table->integer('pro_price');
-            $table->string('pro_info');
+            $table->text('pro_info');
             $table->integer('stock')->default(false);
             $table->timestamps();
         });
