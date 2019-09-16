@@ -20,6 +20,10 @@ Route::view('/','front.index',[
 ]);
 
 
+Route::get('/{page}', 'FrontController@show');  
+
+
+
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
 
@@ -38,29 +42,19 @@ Route::get('cart/remove/{id}','CartController@destroy');
 Route::get('cart/update','CartController@update');
 Route::get('cart/cartLoad','CartController@cartLoad');
 
-//Checkout Function
-Route::get('checkout', 'CheckoutController@index');
-//Route::post('placeOrder', 'CheckoutController@placeOrder');
-
-
-
 //User Middleware Start
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('dashboard','HomeController@index');
 
-
-
     Route::get('myaccount/{link?}','HomeController@myaccount');
     Route::post('saveAddress', 'HomeController@saveAddress');
-
-
-
-
 
     Route::get('/inbox','HomeController@inbox');
     Route::get('updateInbox', 'HomeController@updateInbox');
 
+    //Checkout Function
+    Route::get('checkout', 'CheckoutController@index');
     //placed order
     Route::post('placeOrder', 'CheckoutController@placeOrder');
     Route::get('thankyou', 'CheckoutController@thankyou');
@@ -73,8 +67,6 @@ Route::group(['middleware' => 'auth'], function(){
       $orderData = App\Order::where('id',$id)->get();
       return view('myaccount.track',['data' => $orderData]);
     });
-
-
 });
 
 //admin middleware start
@@ -106,8 +98,10 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['auth' => 'admin']], function
     //admin order
     Route::get('/orders','AdminController@orders');
     Route::get('orderStatusUpdate','AdminController@orderStatusUpdate');
-
+    //admin profile
     Route::get('profile','AdminController@profile');
+    //admin cms pages
+    Route::resource('pages','CmsPageController');
 
 });
 

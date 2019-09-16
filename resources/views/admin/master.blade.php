@@ -123,42 +123,54 @@ input#pro_img {
                     </a>
                 </li>
 
-								<li>
-									<a href="{{url('/admin/profile')}}">
-										<i class="pe-7s-user"></i>
-										<p>Profile</p>
-									</a>
-								</li>
+				<li>
+					<a href="{{url('/admin/profile')}}">
+						<i class="pe-7s-user"></i>
+						<p>Profile</p>
+					</a>
+				</li>
 
-								<li>
-										<a href="{{url('/admin/product')}}">
-												<i class="pe-7s-note"></i>
-												<p>Product</p>
-										</a>
-								</li>
+				<li>
+						<a href="{{url('/admin/product')}}">
+								<i class="pe-7s-note"></i>
+								<p>Product</p>
+						</a>
+				</li>
 
-								<li>
-									<a href="{{url('/admin/category')}}">
-										<i class="pe-7s-notebook"></i>
-										<p>Category</p>
-									</a>
-								</li>
+				<li>
+					<a href="{{url('/admin/category')}}">
+						<i class="pe-7s-notebook"></i>
+						<p>Category</p>
+					</a>
+				</li>
 
-								<li>
-									<a href="{{url('/admin/users')}}">
-										<i class="pe-7s-notebook"></i>
-										<p>Users</p>
-									</a>
-                                </li>
-                                
-                                <li>
-									<a href="{{url('/admin/orders')}}">
-										<i class="pe-7s-note2"></i>
-										<p>Orders</p>
-									</a>
-								</li>
+				<li>
+					<a href="{{url('/admin/users')}}">
+						<i class="pe-7s-users"></i>
+						<p>Users</p>
+					</a>
+                </li>
+                
+                <li>
+					<a href="{{url('/admin/orders')}}">
+						<i class="pe-7s-piggy"></i>
+						<p>Orders</p>
+					</a>
+				</li>
 
-
+               <li class="dropdown submenuparent">
+                      <a href="{{url('/admin/pages')}}" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        <i class="pe-7s-menu"></i>
+                            <p>
+                                CMS Page
+                                <b class="caret"></b>
+                            </p>
+                      </a>
+                      <ul class="dropdown-menu submenu">
+                        <li><a href="{{route('pages.create')}}">Add Page</a></li> 
+                        <li><a href="{{route('pages.index')}}">Pages</a></li>                   
+                      </ul>
+                </li>
             </ul>
     	</div>
     </div>
@@ -204,13 +216,33 @@ input#pro_img {
 
         @yield('content')
 
+        <style type="text/css" media="screen">
+           ul.dropdown-menu.submenu {
+                background-color: #5054bd;
+                border-radius: 0px;
+                padding: 0px 0px 0px;
+                margin: 0 86px 3px;
+            }  
+            li.dropdown.submenuparent.open a {
+                background-color: #eeeeee59;
+                border-color: #337ab7;
+            } 
+            ul.dropdown-menu.submenu a{
+                background-color: #5054bd !important;
+                border-color: #337ab7;
+            }    
+             ul.dropdown-menu.submenu a:hover{
+                color: #fff;
+            }         
+        </style>
+
 
         <footer class="footer">
             <div class="container-fluid">
                 <nav class="pull-left">
                     <ul>
                         <li>
-                            <a href="#">
+                            <a href="{{ url('admin')}}">
                                 Home
                             </a>
                         </li>

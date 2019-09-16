@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
 use Illuminate\Support\Facades\Storage;
+use App\CmsPage;
 
 
 class FrontController extends Controller
@@ -77,6 +78,14 @@ class FrontController extends Controller
         if($product){
           return view('front.details',compact('product'));
         }
+
+    }
+    public function show($page){
+
+      $CmsPage = CmsPage::where('slug','=', $page)->get();
+      if($CmsPage){
+        return view('front.page',compact('CmsPage'));
+      }
 
     }
 

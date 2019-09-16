@@ -46,19 +46,19 @@ class HomeController extends Controller
             'full_address' => 'required'
             ]);
 
-       // $address = Address::findOrFail($id)->get('userid', $id);
-$address = Address::where('userid',$id)->first();
-
-
-        $address->fullname = $request->name;
-        $address->email = $request->email;
-        $address->userid = $request->user_id;
-        $address->phone = $request->phoneNumber;
-        $address->state = $request->state;
-        $address->city = $request->city;
-        $address->country = $request->country;
-        $address->fullAddress = $request->full_address;
-        $address->save();
+            $address = Address::where('userid',$id)->first();
+            if(!$address){
+                $address = new Address;
+            }       
+            $address->fullname = $request->name;
+            $address->email = $request->email;
+            $address->userid = $request->user_id;
+            $address->phone = $request->phoneNumber;
+            $address->state = $request->state;
+            $address->city = $request->city;
+            $address->country = $request->country;
+            $address->fullAddress = $request->full_address;
+            $address->save();
 
 
 

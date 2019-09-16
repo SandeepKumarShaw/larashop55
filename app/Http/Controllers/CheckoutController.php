@@ -33,9 +33,10 @@ class CheckoutController extends Controller
             'country' => 'required',
             'fullAddress' => 'required'
             ]);
-
-        $address = new Address;
-       
+        $address = Address::where('userid',Auth::user()->id)->first();
+        if(!$address){
+            $address = new Address;
+        }       
         $address->userid = Auth::user()->id;
         $address->fullname = $request->fullname;
         $address->email = $request->email;
@@ -45,15 +46,23 @@ class CheckoutController extends Controller
         $address->country = $request->country;
         $address->fullAddress = $request->fullAddress;
         $address->save();
+        Order::createOrder();
+        Cart::destroy();
 
         /*------ stripe payment-------*/
         $cardExpiry = explode("/", $request->cardExpiry);
         $exp_month = $cardExpiry[0];
-        $exp_year = $cardExpiry[1];       
+        $exp_year = $cardExpiry[1];
+        //dd(($request->cardTotal));
+        $total =  (float)(str_replace(',','', $request->cardTotal)) * 100;  
 
-        $stripe = Stripe\Stripe::setApiKey('sk_test_K0ThsZWtj2g1AorbBQDcV2h5');
+
+        $stripe = Stripe\Stripe::setApiKey('sk_test_EUvwlru7xzqamg9DLbqUTrSG00sRDiUPUL');
+
+       
+
         try {
-            $token = $stripe->tokens()->create([
+            $token = \Stripe\Token::create([
                 'card' => [
                     'number'    => $request->cardNumber,
                     'exp_month' => $exp_month,
@@ -62,32 +71,25 @@ class CheckoutController extends Controller
                 ],
             ]);
 
-dd($token);
-
 
             if (!isset($token['id'])) {
                 return Redirect::to('strips')->with('Token is not generate correct');
             }
-            $charge = $stripe->charges()->create([
-                'card' => $token['id'],
-                'currency' => 'USD',
-                'amount'   => $request->cardTotal,
-                'description' => 'Register Event',
+           
+
+            $charge = Stripe\Charge::create ([
+                    "amount" => $total,
+                    "currency" => "usd",
+                    "source" => $token,
+                    "description" => "Test payment from itsolutionstuff.com." 
             ]);
-            $charge = Charge::create(array(
-                'amount' => $request->cardTotal,
-                "source" => $token,
-                'currency' => 'usd'
-            ));
          
-             return 'Payment Success';
+            return redirect('thankyou');
+
             } catch (\Exception $ex) {
                 return $ex->getMessage();
             }
-        /*Order::createOrder();
 
-        Cart::destroy();*/
-        return redirect('thankyou');
 
     }
     public function thankyou(){
