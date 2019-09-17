@@ -82,7 +82,8 @@ class FrontController extends Controller
     }
     public function show($page){
 
-      $CmsPage = CmsPage::where('slug','=', $page)->get();
+      $CmsPage = CmsPage::where('slug', $page)->first();
+
       if($CmsPage){
         return view('front.page',compact('CmsPage'));
       }

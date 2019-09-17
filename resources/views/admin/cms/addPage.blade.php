@@ -5,14 +5,15 @@
   <div class="content">
       <div class="container-fluid">
           <div class="row">
+             <form action="{{ route('pages.store') }}" method="post" enctype="multipart/form-data">
+                             @csrf
               <div class="col-md-8">
                   <div class="card">
                       <div class="header">
                           <h4 class="title">Add New Page</h4>
                       </div>
                       <div class="content">
-                          <form action="{{ route('pages.store') }}" method="POST">
-                             @csrf
+                         
 
                               <div class="row">                                 
                                   <div class="col-md-12">
@@ -44,7 +45,6 @@
 
                               <button type="submit" class="btn btn-info btn-fill pull-right">Add Page</button>
                               <div class="clearfix"></div>
-                          </form>
                       </div>
                   </div>
               </div>
@@ -65,19 +65,19 @@
                       </div>                           
                   </div>
               </div>
-
               <div class="col-md-4">
-                  <div class="card">
+                  <div class="card">                            
                       <div class="image">
-                          <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
-                      </div>
+                          <div class="tm-product-img-dummy mx-auto">
+                          <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" id="blah" alt="your image" width="" />  
+                          </div>                                    
+                      </div>                                
                       <div class="content">
-                            <input type="file" name="featureImg" id="featureimage">
-                      </div>
-                      <hr>     
-                      
+                             <input type="file" id="featureimage" name="featureimage" class="form-control" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+                      </div>                                
                   </div>
               </div>
+            </form>
           </div>
       </div>
   </div>    

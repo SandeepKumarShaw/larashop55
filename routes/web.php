@@ -20,7 +20,7 @@ Route::view('/','front.index',[
 ]);
 
 
-Route::get('/{page}', 'FrontController@show');  
+Route::get('/page/{page}', 'FrontController@show');  
 
 
 
