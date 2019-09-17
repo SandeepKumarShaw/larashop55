@@ -25,9 +25,14 @@
                 </div>                
                     
                 <div class="panel-body">
-                    @if (session('status'))
+                    @if (session('success'))
                         <div class="alert alert-success">
-                            {{ session('status') }}
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                     @if (session('message'))
+                        <div class="alert alert-success">
+                            {{ session('message') }}
                         </div>
                     @endif
                    @if (isset($link))
@@ -64,33 +69,33 @@
                                       <input type="hidden" name="user_id" value="{{Auth::user()->id}}"/>
 
                              
-                              <input type="text" name="name" class="form-control"
+                              <input type="text" name="name" class="input-lg form-control"
                                value="{{AUth::user()->name}}" placeholder="Full Name"/>
                               <br>
 
                             
-                               <input type="text" name="email" class="form-control"
+                               <input type="text" name="email" class="input-lg form-control"
                                value="{{AUth::user()->email}}" style="background-color:#efefef" placeholder="email"/>
                                <br>
 
                                 
-                                <input type="text" name="city" class="form-control" value="{{ $address[0]->city }}"
+                                <input type="text" name="city" class="input-lg form-control" value="{{ $address[0]->city }}"
                                 placeholder="City"/>
                                 <br>
                                 
                                 
-                                <input type="text" name="phoneNumber"  class="form-control" value="{{ $address[0]->phone }}"
+                                <input type="text" name="phoneNumber"  class="input-lg form-control" value="{{ $address[0]->phone }}"
                                 placeholder="Phone Number"/>
                                 <br>
 
-                                 <input type="text"  class="form-control" placeholder="State" value="{{ $address[0]->state }}" name="state">
+                                 <input type="text"  class="input-lg form-control" placeholder="State" value="{{ $address[0]->state }}" name="state">
                                 <br>
-                                <input type="text"  class="form-control" placeholder="Country" value="{{ $address[0]->country }}" name="country">
+                                <input type="text"  class="input-lg form-control" placeholder="Country" value="{{ $address[0]->country }}" name="country">
                                 <br>
-                                <textarea  class="form-control" rows="4" placeholder="Full Address"
+                                <textarea  class="input-lg form-control" rows="4" placeholder="Full Address"
                                 name="full_address">{{ $address[0]->fullAddress }}</textarea>
                                 <br>
-                               <input type="submit" class="btn btn-primary btn-block" value="Update">
+                               <input type="submit" class="btn btn-primary btn-block saveAddress" value="Update">
                             </form>
                       </div>
                       <div id="myorders" class="tab-pane fade in" style="height:400px; overflow-x:scroll">
@@ -115,7 +120,38 @@
                       @endforeach
                       </div>
                       <div id="changepassword" class="tab-pane fade in">
-                        Change Password
+                         <div id="error"></div>
+                        <div id="message"></div>
+                         <form method="POST" action="{{ route('update.password') }}" id="changepass">
+                            @csrf
+                            
+                            <div class="form-group row">
+                               
+                                <div class="col-md-6">
+                                    <input id="password" name="password" type="password" class="input-lg form-control" placeholder="Old password" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                               
+                                <div class="col-md-6">
+                                    <input id="new_password" name="new_password" type="password" class="input-lg form-control" placeholder="New password" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                
+                                <div class="col-md-6">
+                                    <input id="password_confirm" name="password_confirm" type="password" class="input-lg form-control" placeholder="Confirm password" required
+                                           autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group login-row row mb-0">
+                                <div class="col-md-8 offset-md-2">
+                                    <button onClick="validatePassword();" type="submit" class="btn btn-primary updatepassword">
+                                        {{ __('Chnage Password') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                       </div>
                     </div>
 
@@ -139,34 +175,34 @@
                                       <input type="hidden" name="user_id" value="{{Auth::user()->id}}"/>
 
                              
-                              <input type="text" name="name" class="form-control"
+                              <input type="text" name="name" class="input-lg form-control"
                                value="{{AUth::user()->name}}" placeholder="Full Name"/>
                               <br>
 
                             
-                               <input type="text" name="email" class="form-control"
+                               <input type="text" name="email" class="input-lg form-control"
                                value="{{AUth::user()->email}}"
                                readonly style="background-color:#efefef" placeholder="email"/>
                                <br>
 
                                 
-                                <input type="text" name="city" class="form-control" value="{{ $address[0]->city }}"
+                                <input type="text" name="city" class="input-lg form-control" value="{{ $address[0]->city }}"
                                 placeholder="City"/>
                                 <br>
                                 
                                 
-                                <input type="text" name="phoneNumber"  class="form-control" value="{{ $address[0]->phone }}"
+                                <input type="text" name="phoneNumber"  class="input-lg form-control" value="{{ $address[0]->phone }}"
                                 placeholder="Phone Number"/>
                                 <br>
 
-                                 <input type="text"  class="form-control" placeholder="State" value="{{ $address[0]->state }}" name="state">
+                                 <input type="text"  class="input-lg form-control" placeholder="State" value="{{ $address[0]->state }}" name="state">
                                 <br>
-                                <input type="text"  class="form-control" placeholder="Country" value="{{ $address[0]->country }}" name="country">
+                                <input type="text"  class="input-lg form-control" placeholder="Country" value="{{ $address[0]->country }}" name="country">
                                 <br>
-                                <textarea  class="form-control" rows="4" placeholder="Full Address"
+                                <textarea  class="input-lg form-control" rows="4" placeholder="Full Address"
                                 name="full_address">{{ $address[0]->fullAddress }}</textarea>
                                 <br>
-                               <input type="submit" class="btn btn-primary btn-block" value="Update">
+                               <input type="submit" class="btn btn-primary btn-block saveAddress" value="Update">
                             </form>
                       </div>
                       <div id="myorders" class="tab-pane fade in" style="height:400px; overflow-x:scroll">
@@ -191,7 +227,38 @@
                       @endforeach
                       </div>
                       <div id="changepassword" class="tab-pane fade in">
-                        Change Password
+                        <div id="error"></div>
+                        <div id="message"></div>
+                        <form method="POST" action="{{ route('update.password') }}" id="changepass">
+                            @csrf
+                            
+                            <div class="form-group row">
+                               
+                                <div class="col-md-6">
+                                    <input id="password" name="password" type="password" class="input-lg form-control" placeholder="Old password" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                               
+                                <div class="col-md-6">
+                                    <input id="new_password" name="new_password" type="password" class="input-lg form-control" placeholder="New password" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                
+                                <div class="col-md-6">
+                                    <input id="password_confirm" name="password_confirm" type="password" class="input-lg form-control" placeholder="Confirm password" required
+                                           autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group login-row row mb-0">
+                                <div class="col-md-8 offset-md-2">
+                                    <button onClick="validatePassword();" type="submit" class="btn btn-primary updatepassword">
+                                        {{ __('Chnage Password') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                       </div>
                     </div>
                   </div>   
@@ -202,4 +269,55 @@
     </div>
   </div>
 </div>
+      <script src="{{Config::get('app.url')}}/public/js/jquery.validate.min.js"></script>
+
+<script type="text/javascript">
+  function validatePassword() {
+        var validator = $("#changepass").validate({
+            rules: {
+                password: "required",
+                new_password: "required",
+                password_confirm: {
+                    equalTo: "#new_password"
+                }
+            },
+            messages: {
+                password: " Enter Your Old Password",
+                new_password: " Enter Your New Password",
+                password_confirm: " Enter Confirm Password Same as Password"
+            }
+        });
+  }
+  $(document).ready(function(){
+    $('.updatepassword').on('click', function(e){
+      e.preventDefault();
+      var data=$("#changepass").serializeArray();
+        $.ajax({
+            url: "{{ route('update.password')}}",
+            type: 'POST',
+            data:data,
+            success:function(data) {
+                $('#error').html(data.error).delay(3000).fadeOut(3000);
+                $('#message').html(data.success).delay(3000).fadeOut(3000);
+                $("#changepass")[0].reset();
+            }
+        });
+    });
+  });
+
+</script>
+<style type="text/css" media="screen">
+  #changepass label{
+    color: red;
+    text-align: left;
+  }
+  div#error {
+    color: red;
+    text-align: left;
+}
+div#message {
+    color: green;
+    text-align: left;
+}
+</style>
 @endsection

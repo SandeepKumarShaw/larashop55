@@ -7,7 +7,7 @@ use App\Inbox;
 use Auth;
 use App\User;
 use App\Address;
-
+use Hash;
 class HomeController extends Controller
 {
     /**
@@ -60,12 +60,7 @@ class HomeController extends Controller
             $address->fullAddress = $request->full_address;
             $address->save();
 
-
-
-        return redirect()->back();
-
-        //return view('myaccount.index',compact('address'));
-
+            return redirect()->back()->with("success","Account Details Updated successfully !");
     }
     public function inbox(){
         $user_id = Auth::user()->id;
@@ -78,5 +73,18 @@ class HomeController extends Controller
         $Inbox->status  =  1;
         $Inbox->save();
         return response()->json(['success'=>'Record is successfully Updated']); 
+    }
+    public function updatePassword(Request $request){         
+        if (Hash::check($request->password, Auth::user()->password) == false)
+        {
+            $data['error'] = "Your current password does not matches with the password you provided. Please try again.";
+        }else{
+
+              $user = Auth::user();
+              $user->password = Hash::make($request->new_password);
+              $user->save();
+              $data['success'] = "Your password has been updated successfully.";
+        }
+        return $data;         
     }
 }

@@ -15,14 +15,13 @@
 /*Route::get('/',function(){
     return App\User::with('orders')->get();
 });*/
-Route::view('/','front.index',[
+/*Route::view('/','front.index',[
   'products' => App\Product::where('stock','>',0)->offset(0)->limit(6)->get()
-]);
+]);*/
 
 
-Route::get('/page/{page}', 'FrontController@show');  
-
-
+Route::get('/', 'HomePageController@index');
+Route::get('/page/{page}', 'FrontController@show');
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
@@ -49,6 +48,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('myaccount/{link?}','HomeController@myaccount');
     Route::post('saveAddress', 'HomeController@saveAddress');
+    Route::post('password', 'HomeController@updatePassword')->name('update.password');;
+
 
     Route::get('/inbox','HomeController@inbox');
     Route::get('updateInbox', 'HomeController@updateInbox');

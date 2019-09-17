@@ -18,10 +18,7 @@ class CheckoutController extends Controller
             'data' => Cart::content()
           ]);
     }
-    public function placeOrder(Request $request){
-
-
-        
+    public function placeOrder(Request $request){     
 
 
         $this->validate($request, [
