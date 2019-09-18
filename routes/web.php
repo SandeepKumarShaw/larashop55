@@ -21,7 +21,6 @@
 
 
 Route::get('/', 'HomePageController@index');
-Route::get('/page/{page}', 'FrontController@show');
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
@@ -101,8 +100,11 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['auth' => 'admin']], function
     Route::get('orderStatusUpdate','AdminController@orderStatusUpdate');
     //admin profile
     Route::get('profile','AdminController@profile');
+    Route::post('updatProfile','AdminController@updatProfile')->name('updatProfile');
+    Route::post('updatPassword','AdminController@updatPassword')->name('updatPassword');
     //admin cms pages
     Route::resource('pages','CmsPageController');
 
 });
+Route::get('{page}', 'FrontController@show');
 

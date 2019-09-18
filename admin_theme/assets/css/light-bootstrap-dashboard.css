@@ -2812,4 +2812,17 @@ body > .navbar-collapse {
     overflow-x: scroll;
     overflow-y: hidden;
     -ms-overflow-style: -ms-autohiding-scrollbar;
-    -webkit-overflow-scrolling: touch; } }
+    -webkit-overflow-scrolling: touch; } 
+}
+#changepassadmin label, #profile_update label{
+  color: red;
+  text-align: left;
+}
+div#error, div#perror {
+    color: red;
+    text-align: left;
+}
+div#message, div#pmessage {
+    color: green;
+    text-align: left;
+}

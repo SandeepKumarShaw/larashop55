@@ -7,6 +7,10 @@ use Carbon\Carbon;
 use App\User;
 use App\Order;
 use DB;
+use App\Address;
+use Hash;
+use Auth;
+
 class AdminController extends Controller
 {
     /**
@@ -22,7 +26,42 @@ class AdminController extends Controller
         return view('admin.index');
     }
     public function profile(){
-        return view('admin.profile');
+        $id = Auth::user()->id;
+        $address = Address::where('userid',$id)->first();
+        return view('admin.profile', compact('address'));
+    }
+    public function updatProfile(Request $request){
+        $id = $request->user_id;
+        $address = Address::where('userid',$id)->first();
+        if(!$address){
+        $address = new Address;
+        }       
+        $address->fullname = $request->name;
+        $address->email = Auth::user()->email;
+        $address->userid = $request->user_id;
+        $address->phone = $request->phoneNumber;
+        $address->state = $request->state;
+        $address->city = $request->city;
+        $address->country = $request->country;
+        $address->fullAddress = $request->full_address;
+        $address->save();
+        $data['success'] = "Profile Details Updated successfully !";
+        return $data;
+
+    }
+    public function updatPassword(Request $request){
+       if (Hash::check($request->password, Auth::user()->password) == false)
+        {
+            $data['error'] = "Your current password does not matches with the password you provided. Please try again.";
+        }else{
+
+              $user = Auth::user();
+              $user->password = Hash::make($request->new_password);
+              $user->save();
+              $data['success'] = "Your password has been updated successfully.";
+        }
+        return $data;        
+      
     }
     public function user(){
         $data = User::all();

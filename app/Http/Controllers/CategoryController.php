@@ -15,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category.addCategory');
+        $category = Category::all();
+        return view('admin.category.addCategory', compact('category'));
     }
 
     /**
@@ -42,8 +43,11 @@ class CategoryController extends Controller
         {
             return response()->json(['errors'=>$validator->errors()->all()]);
         }else{
+            $cat_id = $request->cat_id;
+            $parent_id = ($cat_id) ? $cat_id : 0;
             $category        = new Category();
             $category->cat_name  = $request->cat_name;
+            $category->parent_id = $parent_id;
             $category->save();
             return response()->json(['success'=>'Record is successfully added']);            
         }
@@ -68,8 +72,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        
-        return view('admin.category.editCategory', compact('category'));
+        $data = Category::all();
+        return view('admin.category.editCategory', compact('category', 'data'));
     }
 
     /**
@@ -87,8 +91,10 @@ class CategoryController extends Controller
         {
             return response()->json(['errors'=>$validator->errors()->all()]);
         }else{
-           
+            $cat_id = $request->cat_id;
+            $parent_id = ($cat_id) ? $cat_id : 0;           
             $category->cat_name  = $request->cat_name;
+            $category->parent_id = $parent_id;
             $category->save();
             return response()->json(['success'=>'Record is successfully Updated']);            
         }

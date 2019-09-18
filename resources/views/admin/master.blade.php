@@ -111,7 +111,7 @@ input#pro_img {
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a href="{{url('/admin')}}" class="simple-text">
-                   LaraShop55
+                   LaraShop
                 </a>
             </div>
 
@@ -187,21 +187,7 @@ input#pro_img {
                            <a href="{{url('/admin')}}/profile">
                                <p>Account</p>
                             </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <p>
-										Dropdown
-										<b class="caret"></b>
-									</p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                              </ul>
-                        </li>
+                        </li>                       
                         <li>
                             <a href="{{url('/logout')}}">
                                 <p>Log out</p>
@@ -251,7 +237,7 @@ input#pro_img {
                 </nav>
                 <p class="copyright pull-right">
                     &copy; <script>document.write(new Date().getFullYear())</script>
-                     <a href="">LaraShop55</a>
+                     <a href="">LaraShop</a>
                 </p>
             </div>
         </footer>
@@ -285,6 +271,8 @@ input#pro_img {
 	<script src="{{Config::get('app.url')}}/admin_theme/assets/js/demo.js"></script>
 	<script src="{{Config::get('app.url')}}/node_modules/select2/dist/js/select2.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{Config::get('app.url')}}/admin_theme/assets/js/jquery.validate.min.js"></script>
+
 
 	<script type="text/javascript">
      function loadCategory(){

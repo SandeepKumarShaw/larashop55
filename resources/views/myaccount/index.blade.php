@@ -269,41 +269,37 @@
     </div>
   </div>
 </div>
-      <script src="{{Config::get('app.url')}}/public/js/jquery.validate.min.js"></script>
-
+<script src="{{Config::get('app.url')}}/public/js/jquery.validate.min.js"></script>
 <script type="text/javascript">
-  function validatePassword() {
-        var validator = $("#changepass").validate({
-            rules: {
+  $(document).ready(function () {
+    $('#changepass').validate({
+        rules: {
                 password: "required",
                 new_password: "required",
                 password_confirm: {
                     equalTo: "#new_password"
                 }
-            },
-            messages: {
+        },
+        messages: {
                 password: " Enter Your Old Password",
                 new_password: " Enter Your New Password",
                 password_confirm: " Enter Confirm Password Same as Password"
-            }
-        });
-  }
-  $(document).ready(function(){
-    $('.updatepassword').on('click', function(e){
-      e.preventDefault();
-      var data=$("#changepass").serializeArray();
-        $.ajax({
-            url: "{{ route('update.password')}}",
-            type: 'POST',
-            data:data,
-            success:function(data) {
-                $('#error').html(data.error).delay(3000).fadeOut(3000);
-                $('#message').html(data.success).delay(3000).fadeOut(3000);
-                $("#changepass")[0].reset();
-            }
-        });
+        },
+        submitHandler: function (form) { // for demo
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('update.password')}}",
+                data: $("#changepass").serializeArray(),                
+                success: function (data) {
+                     $('#error').html(data.error).delay(3000).fadeOut(3000);
+                     $('#message').html(data.success).delay(3000).fadeOut(3000);
+                     $("#changepass")[0].reset();
+                }
+            });
+        }
     });
-  });
+});
 
 </script>
 <style type="text/css" media="screen">
