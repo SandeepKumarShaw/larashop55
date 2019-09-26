@@ -26,11 +26,15 @@
 		<link href="{{Config::get('app.url')}}/node_modules/select2/dist/css/select2.min.css"
 		rel="stylesheet"/>
 
+        <link href="{{Config::get('app.url')}}/admin_theme/assets/css/style.css"
+        rel="stylesheet"/>
+
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="{{Config::get('app.url')}}/admin_theme/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
     <script src="{{Config::get('app.url')}}/admin_theme/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+    <script src="{{Config::get('app.url')}}/admin_theme/assets/js/vasplus_uploader.js" type="text/javascript"></script>
 
 <style>
     .row_head div{ border:1px solid #efefef}

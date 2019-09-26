@@ -131,6 +131,11 @@ $('.cat_id').select2();
                   <input type="number" id="pro_stock" class="form-control"/>
                 </div>
               </div>
+              <div class="row">
+
+                 <button type="submit" class="btn btn-primary2 btn-block text-uppercase" id="btn">Add Product</button>
+                
+              </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
               <div class="tm-product-img-dummy mx-auto">
@@ -140,9 +145,27 @@ $('.cat_id').select2();
                 <input type="file" id="pro_img" name="pro_img" class="form-control" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
               </div>
             </div>
-            <div class="col-12">
-              <button type="submit" class="btn btn-primary2 btn-block text-uppercase" id="btn">Add Product</button>
+            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+              <br>
+                    <div class="preview-images-zone">
+
+                <!-- Code Begins -->
+                <input style="display:none;" type="file" name="vpb-data-file" id="vpb-data-file" onchange="vpb_image_preview(this)" multiple="multiple" />
+
+                <div align="center" style="width:300px;">
+
+                <span class="vpb_browse_file" onclick="document.getElementById('vpb-data-file').click();"></span> <!-- Browse File Button -->
+               <!-- <span onClick="vpb_upload_previewed_files();" class="vpb_pagination_button_clicked">Start Upload</span> --> <!-- Upload File Button -->
+                </div>
+                <div id="vpb-display-preview">
+                  
+                </div>
+                <!-- Code Begins -->
+              </div>
+
+
             </div>
+
           </div>
         </div>
       </div>
