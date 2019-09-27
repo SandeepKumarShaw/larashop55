@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
+use App\ProductPhoto;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -39,6 +40,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
+        //$gimages = $request->file('pro_gal_img');
+
+
+
+        if($request->hasfile('pro_gal_img'))
+         {
+            foreach($request->file('pro_gal_img') as $livefile)
+            {
+                $name=$livefile->getClientOriginalName();
+                $livefile->move(public_path().'/image/', $name);  
+                $data[] = $name;  
+            }
+         }
+
+        print_r($data);
+        
+
+
         $validator = Validator::make($request->all(),['pro_name' => 'required','pro_code' => 'required','pro_price' => 'required','pro_info' => 'required']);
         
         if ($validator->fails())
@@ -82,6 +104,8 @@ class ProductController extends Controller
             $product->pro_img    = $imageName;
             $product->save();
             $product->categories()->attach($cat_id);
+
+            $product->productgalery()->attach($data);
 
             return response()->json(['success'=>'Record is successfully added']);            
         }

@@ -19,8 +19,12 @@ class Product extends Model
         return $this->belongsToMany('App\Category')->withTimestamps();
     }
     //
-      public function cats(){
-        return $this->belongsTo('App\Category', 'id');
-      }
+    public function cats(){
+      return $this->belongsTo('App\Category', 'id');
+    }
+    public function productgalery()
+    {
+      return $this->belongsToMany('App\ProductPhoto')->withTimestamps();
+    }
 
 }

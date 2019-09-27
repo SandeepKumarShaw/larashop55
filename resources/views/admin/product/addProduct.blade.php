@@ -12,6 +12,13 @@ $(document).ready(function(){
                 ids[i] = $(selected).val();
         });
 
+    
+    //var vpb_files = document.getElementById('vpb-data-file').files;
+        
+       
+    
+      
+
     var pro_name = $("#pro_name").val();
     var pro_code = $("#pro_code").val();
     var pro_price = $("#pro_price").val();
@@ -32,6 +39,23 @@ $(document).ready(function(){
     post_data.append( 'ids', ids ); 
     post_data.append( 'pro_img', pro_img );   
 
+  /*  $.each(vpb_files, function(keys, values)
+    {
+      post_data.append(keys, values);
+    });*/
+
+
+    var files =$('input[name^=pro_gal_img')[0].files;
+    //console.log(files.length);
+
+    for(var i=0;i<files.length;i++){
+        post_data.append("pro_gal_img[]", files[i], files[i]['name']);
+
+    }
+
+
+  //console.log(post_data);
+
 
     $.ajax({
       type: "post",
@@ -40,6 +64,8 @@ $(document).ready(function(){
       processData: false,
       contentType: false,
       success:function(data){
+
+       // console.log(data);
          
 
 
@@ -131,11 +157,7 @@ $('.cat_id').select2();
                   <input type="number" id="pro_stock" class="form-control"/>
                 </div>
               </div>
-              <div class="row">
-
-                 <button type="submit" class="btn btn-primary2 btn-block text-uppercase" id="btn">Add Product</button>
-                
-              </div>
+              
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
               <div class="tm-product-img-dummy mx-auto">
@@ -150,7 +172,7 @@ $('.cat_id').select2();
                     <div class="preview-images-zone">
 
                 <!-- Code Begins -->
-                <input style="display:none;" type="file" name="vpb-data-file" id="vpb-data-file" onchange="vpb_image_preview(this)" multiple="multiple" />
+                <input style="display:none;" type="file" name="pro_gal_img[]" id="vpb-data-file" onchange="vpb_image_preview(this)" multiple="multiple" />
 
                 <div align="center" style="width:300px;">
 
@@ -165,6 +187,12 @@ $('.cat_id').select2();
 
 
             </div>
+
+            <div class="row">
+
+                 <button type="submit" class="btn btn-primary2 btn-block text-uppercase" id="btn">Add Product</button>
+                
+              </div>
 
           </div>
         </div>
