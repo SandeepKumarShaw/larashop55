@@ -47,18 +47,7 @@ class ProductController extends Controller
 
 
 
-        if($request->hasfile('pro_gal_img'))
-         {
-            foreach($request->file('pro_gal_img') as $livefile)
-            {
-                $name=$livefile->getClientOriginalName();
-                $livefile->move(public_path().'/image/', $name);  
-                $data[] = $name;  
-            }
-         }
-
-        print_r($data);
-        
+       
 
 
         $validator = Validator::make($request->all(),['pro_name' => 'required','pro_code' => 'required','pro_price' => 'required','pro_info' => 'required']);
@@ -105,7 +94,33 @@ class ProductController extends Controller
             $product->save();
             $product->categories()->attach($cat_id);
 
-            $product->productgalery()->attach($data);
+
+             if($request->hasfile('pro_gal_img'))
+         {
+            foreach($request->file('pro_gal_img') as $livefile)
+            {
+
+                $slug = str_slug($request->pro_name);
+                $currentDate = Carbon::now()->toDateString();
+                $gimageName = $slug.'-'.$currentDate.'-'.uniqid().'.'.$livefile->getClientOriginalExtension();
+
+
+                //$name=$livefile->getClientOriginalName();
+                $livefile->move(public_path().'/image/', $gimageName);  
+
+                $data[] = $gimageName;  
+
+
+                $productgalery = new ProductPhoto();
+                $productgalery->filename = $gimageName;
+                 $product->productgalery()->save($productgalery); // will save the image for the post.
+            }
+         }
+
+       // print_r($data);
+        
+
+           // $product->productgalery()->saveMany($data);
 
             return response()->json(['success'=>'Record is successfully added']);            
         }
@@ -214,5 +229,15 @@ class ProductController extends Controller
         $data = Product::all();
         return view('admin.product.products',compact('data'));
 
+    }
+     public function galremove($id)
+    {
+
+        $ProductPhoto = ProductPhoto::findOrFail( $id );  
+
+
+        $ProductPhoto->delete();
+        return response()->json(['success'=>'Record is successfully Deleted']);        
+        //return redirect()->route('admin.category.index');
     }
 }

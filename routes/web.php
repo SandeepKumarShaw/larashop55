@@ -81,7 +81,8 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['auth' => 'admin']], function
           'data' => App\User::all()
         ]);  */
 
-    //admin product   
+    //admin product 
+    Route::get('/product/galremove/{$id}','ProductController@galremove')->name('product.galremove');
     Route::get('/prod','ProductController@prod'); 
     Route::resource('product','ProductController');
     /*Route::view('/prod','admin.product.products',[

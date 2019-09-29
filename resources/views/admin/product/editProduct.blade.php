@@ -34,6 +34,14 @@ $(document).ready(function(){
     post_data.append( 'ids', ids ); 
     post_data.append( 'pro_img', pro_img );   
     post_data.append( 'id', id ); 
+        var files =$('input[name^=pro_gal_img')[0].files;
+    //console.log(files.length);
+
+    for(var i=0;i<files.length;i++){
+        post_data.append("pro_gal_img[]", files[i], files[i]['name']);
+
+    }
+
     $.ajax({
       type: "POST",
       data: post_data,
@@ -125,6 +133,38 @@ $('#cat_id').select2();
               <div class="footer custom-file mt-3 mb-3" style="text-align:center">
                 <input type="file" id="pro_img" name="pro_img" class="form-control" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
               </div>
+            </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+              <br>
+                    <div class="preview-images-zone">
+
+                <!-- Code Begins -->
+                <input style="display:none;" type="file" name="pro_gal_img[]" id="vpb-data-file" onchange="vpb_image_preview(this)" multiple="multiple" />
+
+                <div align="center" style="width:300px;">
+
+                <span class="vpb_browse_file" onclick="document.getElementById('vpb-data-file').click();"></span> <!-- Browse File Button -->
+               <!-- <span onClick="vpb_upload_previewed_files();" class="vpb_pagination_button_clicked">Start Upload</span> --> <!-- Upload File Button -->
+                </div>
+                 <div id="vpb-display-preview">
+                 @foreach($product->productgalery as $productgaler)
+                             
+
+                  <div id="gallery_{{ $productgaler->id }}" class="vpb_wrapper">            
+                    <img class="vpb_image_style" src="{{Config::get('app.url')}}/public/image/{{ $productgaler->filename }}" title=""><br>
+                    <a style="cursor:pointer;padding-top:5px;" onclick="vpb_remove_selecteds('{{ $productgaler->id }}','{{ $productgaler->filename }}', '{{ route("product.galremove", $productgaler->id) }}')">Remove</a>           
+                  </div>              
+               
+               
+                @endforeach                         
+
+ </div>
+               
+
+                <!-- Code Begins -->
+              </div>
+
+
             </div>
             <div class="col-12">
               <button type="submit" class="btn btn-primary2 btn-block text-uppercase" id="btn">Update Product</button>

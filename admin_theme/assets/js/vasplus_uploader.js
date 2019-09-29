@@ -55,45 +55,29 @@ function vpb_remove_selected(id,name)
 }
 
 
-//Upload Files
-function vpb_upload_previewed_files()
+//Upload Files delete
+function vpb_remove_selecteds(id,name,url)
 {
-	// If no file is selected then do not proceed
-	if(document.getElementById('vpb-data-file').value == "") 
-	{
-		$("#vpb-display-preview").fadeIn(2000).html('<div class="vpb_display_info" align="center">Please browse for some files to proceed.</div>'); 
-		return false 
-	} 
-	else 
-	{
-		//Proceed now because a user has selected some files
-		
-		var vpb_files = document.getElementById('vpb-data-file').files;
-				
-		// Create a formdata object and append the files
-		var vpb_data = new FormData();
-		
-		$.each(vpb_files, function(keys, values)
-		{
-			vpb_data.append(keys, values);
-		});
-	
-		$.ajax({
-			url: 'vasplus_uploader.php',
-			type: 'POST',
-			data: vpb_data,
+
+	alert(url);
+
+	var token = $("#token").val();
+	//$('#v-add-'+id).remove();
+	//$('#selector_'+id).fadeOut();
+
+			$.ajax({
+			url: url,
+			type: 'GET',
+			data: "&_token=" + token + "&id=" + id,
 			cache: false,
 			processData: false,
 			contentType: false,
-			beforeSend: function()
+			
+			success: function(data)
 			{
-				$("#vpb-display-preview").html('<div style="font-family:Verdana, Geneva, sans-serif; font-size:12px;">Please wait <img src="images/loading.gif" align="absmiddle" alt="Uploading..."></div>');
-			},
-			success: function(response)
-			{
-				$("#vpb-display-preview").html(response);
-				$('#vpb-data-file').val('');
+				console.log(data);
+				//$("#vpb-display-preview").html(response);
+				//$('#vpb-data-file').val('');
 			}
 		});
-	}
 }

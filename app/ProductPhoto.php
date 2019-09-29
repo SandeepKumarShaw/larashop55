@@ -11,6 +11,6 @@ class ProductPhoto extends Model
 
     public function product()
     {
-        return $this->belongsToMany('App\Product')->withTimestamps();
+        return $this->belongsTo('App\Product');
     }
 }

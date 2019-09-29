@@ -24,7 +24,7 @@ class Product extends Model
     }
     public function productgalery()
     {
-      return $this->belongsToMany('App\ProductPhoto')->withTimestamps();
+      return $this->hasMany('App\ProductPhoto');
     }
 
 }
