@@ -293,6 +293,7 @@ ol.progtrckr li.progtrckr-todo:before {
 <script type="text/javascript" src="{{Config::get('app.url')}}/theme/js/multiple-accordion.js"></script>
 <script type="text/javascript" src="{{Config::get('app.url')}}/theme/js/jquery.nice-select.js"></script>
 <script type="text/javascript" src="{{Config::get('app.url')}}/theme/js/jquery.bootstrap-responsive-tabs.js"></script>
+<script type="text/javascript" src="{{Config::get('app.url')}}/theme/js/zoomsl.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
         $("#CartMsg").hide();

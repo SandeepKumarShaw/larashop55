@@ -49,15 +49,17 @@
 		    <div class="row top20">
 		        <div class="alert alert-info" id="CartMsg"></div>
 		    	<div class="col-sm-1 col-md-1 col-lg-1 hidden-xs">
-		    	<!-- 	<div class="prodthumb">
+		    		<div class="prodthumb">
 		    			<ul>
-		    				<li><img src="images/thumb1.jpg" alt=""/></li>
-		    				<li><img src="images/thumb2.jpg" alt=""/></li>
+		    				@foreach($product->productgalery as $productgaler)
+		    				<li><img src="{{Config::get('app.url')}}/public/image/{{ $productgaler->filename }}" alt=""/></li>
+		    				
+		    				 @endforeach
 		    			</ul>	
-		    		</div> -->
+		    		</div>
 		    	</div>
 		    	<div class="col-sm-5 col-md-5 col-lg-5">
-		    		<img src="{{ Storage::disk('public')->url('app/public/product/'.$product->pro_img) }}" alt="" />
+		    		<img class="bigpro_img" src="{{ Storage::disk('public')->url('app/public/product/'.$product->pro_img) }}" alt="" />
 		    	</div>
 		    	<div class="col-sm-6 col-md-6 col-lg-5">
 		    		<div class="prodInfo">
@@ -109,6 +111,16 @@
 		</div>
 	</div>
 
-
+<script>
+$(document).ready(function(){
+    $(".prodthumb img").click(function(){
+    	var images = $(this).attr('src');
+        // Change src attribute of image
+        $('.bigpro_img').attr("src", images);
+    });
+     $(".bigpro_img").imagezoomsl();
+    
+});
+</script>
 @endsection
 
