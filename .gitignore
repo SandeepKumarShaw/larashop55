@@ -1,6 +1,8 @@
 /node_modules
 /public/hot
 /public/storage
+/public/image
+laraShop55.sql.zip
 /storage/*.key
 /vendor
 .env

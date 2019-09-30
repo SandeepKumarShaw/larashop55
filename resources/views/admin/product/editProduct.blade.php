@@ -146,7 +146,8 @@ $('#cat_id').select2();
                 <span class="vpb_browse_file" onclick="document.getElementById('vpb-data-file').click();"></span> <!-- Browse File Button -->
                <!-- <span onClick="vpb_upload_previewed_files();" class="vpb_pagination_button_clicked">Start Upload</span> --> <!-- Upload File Button -->
                 </div>
-                 <div id="vpb-display-preview">
+                <div id="vpb-display-preview"></div>
+                 <div id="vpb-display-preview1">
                  @foreach($product->productgalery as $productgaler)
                              
 
@@ -159,6 +160,33 @@ $('#cat_id').select2();
                 @endforeach                         
 
  </div>
+ <script type="text/javascript">
+   //Upload Files delete
+function vpb_remove_selecteds(id,name,url)
+{
+
+  //alert(url);
+
+  var token = $("#token").val();
+  
+
+      $.ajax({
+      url: url,
+      type: 'GET',
+      data: "&_token=" + token + "&id=" + id,
+      cache: false,
+      processData: false,
+      contentType: false,
+      
+      success: function(data)
+      {
+        console.log(data);
+        $('#v-add-'+id).remove();
+        $('#gallery_'+id).fadeOut();
+      }
+    });
+}
+ </script>
                
 
                 <!-- Code Begins -->

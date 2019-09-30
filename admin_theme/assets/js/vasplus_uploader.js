@@ -55,29 +55,3 @@ function vpb_remove_selected(id,name)
 }
 
 
-//Upload Files delete
-function vpb_remove_selecteds(id,name,url)
-{
-
-	alert(url);
-
-	var token = $("#token").val();
-	//$('#v-add-'+id).remove();
-	//$('#selector_'+id).fadeOut();
-
-			$.ajax({
-			url: url,
-			type: 'GET',
-			data: "&_token=" + token + "&id=" + id,
-			cache: false,
-			processData: false,
-			contentType: false,
-			
-			success: function(data)
-			{
-				console.log(data);
-				//$("#vpb-display-preview").html(response);
-				//$('#vpb-data-file').val('');
-			}
-		});
-}

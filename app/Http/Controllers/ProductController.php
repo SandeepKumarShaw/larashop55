@@ -198,6 +198,28 @@ class ProductController extends Controller
             $product->save();
             $product->categories()->sync($cat_id);
 
+        if($request->hasfile('pro_gal_img'))
+         {
+            foreach($request->file('pro_gal_img') as $livefile)
+            {
+
+                $slug = str_slug($request->pro_name);
+                $currentDate = Carbon::now()->toDateString();
+                $gimageName = $slug.'-'.$currentDate.'-'.uniqid().'.'.$livefile->getClientOriginalExtension();
+
+
+                //$name=$livefile->getClientOriginalName();
+                $livefile->move(public_path().'/image/', $gimageName);  
+
+                $data[] = $gimageName;  
+
+
+                $productgalery = new ProductPhoto();
+                $productgalery->filename = $gimageName;
+                 $product->productgalery()->save($productgalery); // will save the image for the post.
+            }
+         }
+
 
             return response()->json(['success'=>'Record is successfully Updated']);            
         }
@@ -234,6 +256,11 @@ class ProductController extends Controller
     {
 
         $ProductPhoto = ProductPhoto::findOrFail( $id );  
+
+        $file_path = public_path().'/image/'.$ProductPhoto->filename;
+        unlink($file_path);
+
+        //return $file_path;
 
 
         $ProductPhoto->delete();
