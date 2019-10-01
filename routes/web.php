@@ -67,6 +67,39 @@ Route::group(['middleware' => 'auth'], function(){
       $orderData = App\Order::where('id',$id)->get();
       return view('myaccount.track',['data' => $orderData]);
     });
+
+    Route::resource('review','ProductReviewController');
+
+
+
+
+// Route that handles submission of review - rating/comment
+Route::post('details/{id}', array('before'=>'csrf', function($id)
+{
+
+    $input = array(
+        'comment' => Input::get('comment'),
+        'rating'  => Input::get('rating'),
+        'user_id'  => Input::get('user_id')
+
+    );
+    // instantiate Rating model
+    $review = new App\Review;
+    // Validate that the user's input corresponds to the rules specified in the review model
+    $validator = Validator::make( $input, $review->getCreateRules());
+    // If input passes validation - store the review in DB, otherwise return to product page with error message 
+    if ($validator->passes()) {
+        $review->storeReviewForProduct($id, $input['comment'], $input['rating'], $input['user_id']);
+        return Redirect::to('details/'.$id)->with('review_posted',true);
+    }
+    
+    return Redirect::to('details/'.$id)->withErrors($validator)->withInput();
+}));
+
+
+
+
+
 });
 
 //admin middleware start

@@ -41,6 +41,10 @@ class User extends Authenticatable
     public function orders(){
       return $this->hasMany(Order::class);
     }
+        public function review()
+    {
+        return $this->hasOne(ProductReview::class);
+    }
 
     /**
      * The attributes that should be cast to native types.

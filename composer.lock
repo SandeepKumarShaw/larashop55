@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5ad372b3fbf0b43e79298b6a2eae5ce4",
-    "content-hash": "ad9f1e22615f9b7fa260930788839358",
+    "hash": "5e0fa8d0bd2f7a779bf45bc2d23eafd5",
+    "content-hash": "f9fe02beba879dc869bba3fc5eccc8a6",
     "packages": [
         {
             "name": "brian2694/laravel-toastr",
@@ -1002,6 +1002,74 @@
             "time": "2019-08-07 15:10:45"
         },
         {
+            "name": "laravelcollective/html",
+            "version": "v5.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LaravelCollective/html.git",
+                "reference": "3a1c9974ea629eed96e101a24e3852ced382eb29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/3a1c9974ea629eed96e101a24e3852ced382eb29",
+                "reference": "3a1c9974ea629eed96e101a24e3852ced382eb29",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "5.8.*",
+                "illuminate/routing": "5.8.*",
+                "illuminate/session": "5.8.*",
+                "illuminate/support": "5.8.*",
+                "illuminate/view": "5.8.*",
+                "php": ">=7.1.3"
+            },
+            "require-dev": {
+                "illuminate/database": "5.8.*",
+                "mockery/mockery": "~1.0",
+                "phpunit/phpunit": "~7.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.8-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Collective\\Html\\HtmlServiceProvider"
+                    ],
+                    "aliases": {
+                        "Form": "Collective\\Html\\FormFacade",
+                        "Html": "Collective\\Html\\HtmlFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Collective\\Html\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Engebretson",
+                    "email": "adam@laravelcollective.com"
+                },
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "description": "HTML and Form Builders for the Laravel Framework",
+            "homepage": "https://laravelcollective.com",
+            "time": "2019-09-05 12:32:25"
+        },
+        {
             "name": "league/flysystem",
             "version": "1.0.55",
             "source": {
@@ -1878,16 +1946,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.1.0",
+            "version": "v7.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "9b97ddb9495b7d82d66c05553345f53c4ca8f2d8"
+                "reference": "9a58f033d9d126c3785f0d8ad47f2e1db269864a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/9b97ddb9495b7d82d66c05553345f53c4ca8f2d8",
-                "reference": "9b97ddb9495b7d82d66c05553345f53c4ca8f2d8",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/9a58f033d9d126c3785f0d8ad47f2e1db269864a",
+                "reference": "9a58f033d9d126c3785f0d8ad47f2e1db269864a",
                 "shasum": ""
             },
             "require": {
@@ -1931,7 +1999,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2019-09-13 18:42:39"
+            "time": "2019-09-24 17:11:03"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4384,16 +4452,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "e899757bb3df5ff6e95089132f32cd59aac2220a"
+                "reference": "995192df77f63a59e47f025390d2d1fdf8f425ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/e899757bb3df5ff6e95089132f32cd59aac2220a",
-                "reference": "e899757bb3df5ff6e95089132f32cd59aac2220a",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/995192df77f63a59e47f025390d2d1fdf8f425ff",
+                "reference": "995192df77f63a59e47f025390d2d1fdf8f425ff",
                 "shasum": ""
             },
             "require": {
@@ -4429,7 +4497,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2019-07-25 05:29:42"
+            "time": "2019-09-17 06:23:10"
         },
         {
             "name": "phpunit/phpunit",

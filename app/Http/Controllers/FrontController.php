@@ -7,6 +7,8 @@ use App\Product;
 use App\Category;
 use Illuminate\Support\Facades\Storage;
 use App\CmsPage;
+use App\Review;
+use App\User;
 
 
 class FrontController extends Controller
@@ -75,8 +77,10 @@ class FrontController extends Controller
     }
     public function details($id){
       $product = Product::find($id);
+        $reviews = $product->reviews()->with('user')->approved()->notSpam()->orderBy('created_at','desc')->paginate(100);
+
         if($product){
-          return view('front.details',compact('product'));
+          return view('front.details',compact('product','reviews'));
         }
 
     }
