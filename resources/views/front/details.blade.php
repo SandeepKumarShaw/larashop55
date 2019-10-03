@@ -1,7 +1,6 @@
 @extends('front.master')
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
-
 @section('styles')
   <style type="text/css">
 
@@ -80,10 +79,10 @@
 		    <div class="row top20">
 		        <div class="alert alert-info" id="CartMsg"></div>
 		    	<div class="col-sm-1 col-md-1 col-lg-1 hidden-xs">
-		    		<div class="prodthumb">
-		    			<ul>
+		    		<div class="prodthumb item">
+		    			<ul id="content-slider" class="content-slider">
 		    				@foreach($product->productgalery as $productgaler)
-		    				<li><img src="{{Config::get('app.url')}}/public/image/{{ $productgaler->filename }}" alt=""/></li>
+		    				<li><img class="item" src="{{Config::get('app.url')}}/public/image/{{ $productgaler->filename }}" alt=""/></li>
 		    				
 		    				 @endforeach
 		    			</ul>	
@@ -95,6 +94,7 @@
 		    	<div class="col-sm-6 col-md-6 col-lg-5">
 		    		<div class="prodInfo">
 		    		   	<h3>{{ $product->pro_name }}</h3>
+
                  <div class="rating">
                   <p class="pull-right">{{$product->rating_count}} {{ Str::plural('review', $product->rating_count) }}</p>
                   <p>
@@ -103,7 +103,9 @@
                     @endfor
                     {{ number_format($product->rating_cache, 1)}} stars
                   </p>
+                  @if($product->rating_count == 0)
                   <p>Be the first to review this product : <a href="#reviews-anchor" class="scrollTo">Write a Review</a></p>
+                  @endif
               </div>
 
 		                <h2>Rs {{ $product->pro_price }}</h2>
@@ -144,7 +146,7 @@
 	</div>
 
 <div class="container">
-            <div class="well" id="reviews-anchor">
+            <div @if($product->rating_count > 0) class="well" @endif id="reviews-anchor">
               <div class="row">
                 <div class="col-md-12">
                   @if(Session::get('errors'))
@@ -170,6 +172,8 @@
                   @endif
                 </div>
               </div>
+         
+              @if (Auth::check() && in_array(Auth::user()->id, $orderStatus['id']) && in_array('delivered', $orderStatus['status']))
               <div class="text-right">
                 <a href="javascript:void(0);" id="open-review-box" class="btn btn-success btn-green">Leave a Review</a>
               </div>
@@ -187,7 +191,7 @@
                 {{Form::close()}}
                 </div>
               </div>
-
+              @endif
               @foreach($reviews as $review)
               <hr>
                 <div class="row">

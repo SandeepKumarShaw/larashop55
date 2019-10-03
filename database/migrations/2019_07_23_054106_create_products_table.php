@@ -21,6 +21,8 @@ class CreateProductsTable extends Migration
             $table->integer('pro_price');
             $table->text('pro_info');
             $table->integer('stock')->default(false);
+            $table->float('rating_cache', 2, 1)->default(false);
+            $table->integer('rating_count')->default(false);
             $table->timestamps();
         });
     }

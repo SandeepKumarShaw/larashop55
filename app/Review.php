@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Auth;
 class Review extends Model
 {
 
@@ -19,12 +19,12 @@ class Review extends Model
     // Relationships
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('App\User');
     }
 
     public function product()
     {
-        return $this->belongsTo('Product');
+        return $this->belongsTo('App\Product');
     }
 
     // Scopes
@@ -55,7 +55,7 @@ class Review extends Model
     {
         $product = Product::find($productID);
 
-        //$this->user_id = Auth::user()->id;
+        $this->user_id = Auth::user()->id;
         $this->comment = $comment;
         $this->rating = $rating;
         $product->reviews()->save($this);

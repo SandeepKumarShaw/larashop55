@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\ProductReview;
+use App\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class ProductReviewController extends Controller
 {
@@ -12,76 +15,26 @@ class ProductReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $input = array(
+        'comment' => Input::get('comment'),
+        'rating'  => Input::get('rating'),
+        'user_id'  => Input::get('user_id')
+
+    );
+    // instantiate Rating model
+    $review = new Review;
+    // Validate that the user's input corresponds to the rules specified in the review model
+    $validator = Validator::make( $input, $review->getCreateRules());
+    // If input passes validation - store the review in DB, otherwise return to product page with error message 
+    if ($validator->passes()) {
+        $review->storeReviewForProduct($id, $input['comment'], $input['rating']);
+        return Redirect::to('details/'.$id)->with('review_posted',true);
+    }
+    
+    return Redirect::to('details/'.$id)->withErrors($validator)->withInput();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        auth()->user()->review()->create($request->all());
-
-        return back();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\ProductReview  $productReview
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ProductReview $productReview)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ProductReview  $productReview
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProductReview $productReview)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ProductReview  $productReview
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ProductReview $productReview)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\ProductReview  $productReview
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ProductReview $productReview)
-    {
-        //
-    }
 }

@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Storage;
 use App\CmsPage;
 use App\Review;
 use App\User;
-
+use App\Order_Product;
+use App\Order;
 
 class FrontController extends Controller
 {
@@ -77,10 +78,25 @@ class FrontController extends Controller
     }
     public function details($id){
       $product = Product::find($id);
+
+
+      $orderStatus = array('id'=>array(), 'status'=>array());
+      $order = array(); 
+      $Order_Product = Order_Product::where('product_id', $id)->get();
+       foreach ($Order_Product as $Orders) {
+         $order[] = Order::find($Orders->order_id);
+         
+      }
+
+      foreach ($order as $orderr) {
+        $orderStatus['id'][] = $orderr->user_id;
+        $orderStatus['status'][] = $orderr->status;           
+      }
+      
         $reviews = $product->reviews()->with('user')->approved()->notSpam()->orderBy('created_at','desc')->paginate(100);
 
         if($product){
-          return view('front.details',compact('product','reviews'));
+          return view('front.details',compact('product','reviews','orderStatus'));
         }
 
     }
