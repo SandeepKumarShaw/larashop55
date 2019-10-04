@@ -1,69 +1,10 @@
 @extends('front.master')
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-
 @section('styles')
-  <style type="text/css">
 
-     /* Enhance the look of the textarea expanding animation */
-     .animated {
-        -webkit-transition: height 0.2s;
-        -moz-transition: height 0.2s;
-        transition: height 0.2s;
-      }
-
-      .stars {
-        margin: 20px 0;
-        font-size: 24px;
-        color: #d17581;
-      }
-
-  </style>
 @stop
   @section('content')
-  <script type="text/javascript">
-	$(document).ready(function(){
-
-  $(".scrollTo").on('click', function(e) {
-     e.preventDefault();
-     var target = $(this).attr('href');
-     $('html, body').animate({
-       scrollTop: ($(target).offset().top)
-     }, 2000);
-  });
-
-
-      $("#CartMsg").hide();
-
-  //Add to Cart
-  $('.add_to_cart_details').click(function(){
-    var id = $(this).data("id");
-    var qty = $(".qty-fill-details").val();
-    if(qty > 0){
-    	$.ajax({
-              type:"get",
-              data:"id=" + id + "&qty=" + qty,
-              url:"{{ url('/cart/add')}}/" + id,
-              success:function(response){
-                $("#CartMsg").show();
-                console.log(response);
-                $("#CartMsg").html(response.carMsg);                      
-                setTimeout(function() {
-                    $('#CartMsg').fadeOut('fast');
-                }, 2000);
-
-                $('.cartCount').html(response.cartCount);
-
-              }
-        });
-
-    }else{
-    	alert('Please enter valid Quantity!')
-    }
-  });
-});
-</script>
-
-      <div class="container">
+  <div class="container">
 		<div class="wrapper">
 			<div class="row">
 				<div class="col-sm-12">
@@ -79,13 +20,13 @@
 		    <div class="row top20">
 		        <div class="alert alert-info" id="CartMsg"></div>
 		    	<div class="col-sm-1 col-md-1 col-lg-1 hidden-xs">
-		    		<div class="prodthumb item">
-		    			<ul id="content-slider" class="content-slider">
+		    		<div class="prodthumb item slider">
+		    			<!-- <ul id="content-slider" class="content-slider"> -->
 		    				@foreach($product->productgalery as $productgaler)
-		    				<li><img class="item" src="{{Config::get('app.url')}}/public/image/{{ $productgaler->filename }}" alt=""/></li>
+		    				<div><img class="item" src="{{Config::get('app.url')}}/public/image/{{ $productgaler->filename }}" alt=""/></div>
 		    				
 		    				 @endforeach
-		    			</ul>	
+		    			<!-- </ul>	 -->
 		    		</div>
 		    	</div>
 		    	<div class="col-sm-5 col-md-5 col-lg-5">
@@ -115,9 +56,15 @@
 		                	    <div class="bagbtn"><a href="/">OUT OF STOCK</a></div>
 		                	@else
 		                	     <input type="number" value="1" class="qty-fill-details">
-		                	    <div class="bagbtn"><a href="javascript:void(0);" data-id="{{ $product->id}}" class="add_to_cart_details">Add to bag</a></div>
+		                	    <div class="bagbtn"><a href="javascript:void(0);" data-id="{{ $product->id}}" data-url="{{ url('/cart/add')}}" class="add_to_cart_details">Add to bag</a></div>
 		                	@endif
 		                	<span class="wishlist"><i class="fa fa-heart"></i></span><hr>
+
+                      <form action="{{route('wishlist.store')}}" id="contact_form" method="post">
+  {{csrf_field()}}
+  <input name="user_id" type="text" value="{{Auth::user()->id}}" />
+  <input name="product_id" type="text" value="{{$product->id}}" />
+</form>
 		                			              
 		                </div>
 		                <div class="share">
@@ -213,38 +160,11 @@
   
 </div>
 
-
-<script>
-$(document).ready(function(){
-    $(".prodthumb img").click(function(){
-    	var images = $(this).attr('src');
-        // Change src attribute of image
-        $('.bigpro_img').attr("src", images);
-    });
-     $(".bigpro_img").imagezoomsl();
-    
-});
-</script>
-<style type="text/css" media="screen">
-
-    span.glyphicon.glyphicon-star {
-    color: #222;
-    font-size: 20px;
-}
-.glyphicon-star-empty{
-font-size: 20px;
-}
-.stars.starrr {
-    margin: 0 0 10px;
-}
-</style>
   
-  <script src="{{Config::get('app.url')}}/public/js/expanding.js"></script>
-  <script src="{{Config::get('app.url')}}/public/js/starrr.js"></script>
+
 
   <script type="text/javascript">
     $(function(){
-
       // initialize the autosize plugin on the review text area
       $('#new-review').autosize({append: "\n"});
 

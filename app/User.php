@@ -45,6 +45,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(ProductReview::class);
     }
+    public function wishlist(){
+       return $this->hasMany(Wishlist::class);
+    }
 
     /**
      * The attributes that should be cast to native types.

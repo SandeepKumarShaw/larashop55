@@ -70,6 +70,9 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::post('details/{id}','ProductReviewController@index');
 
+    Route::resource('/wishlist', 'WishlistController', ['except' => ['create', 'edit', 'show', 'update']]);
+
+
 });
 
 //admin middleware start

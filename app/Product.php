@@ -43,6 +43,9 @@ class Product extends Model
       $this->rating_count = $reviews->count();
       $this->save();
     }
+    public function wishlist(){
+       return $this->hasMany(Wishlist::class);
+    }
     
 
 }

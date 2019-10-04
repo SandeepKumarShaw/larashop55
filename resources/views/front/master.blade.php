@@ -5,95 +5,9 @@
 <link type="text/css" href="{{Config::get('app.url')}}/theme/css/bootstrap.css" rel="stylesheet"/>
 <link type="text/css" href="{{Config::get('app.url')}}/theme/css/font-awesome.css" rel="stylesheet" />
 <link type="text/css" href="{{Config::get('app.url')}}/theme/css/style.css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <script type="text/javascript" src="{{Config::get('app.url')}}/theme/js/jquery-1.11.3.js"></script>
 
-<style>
-ol.progtrckr {
-    margin: 0;
-    padding: 0;
-    list-style-type none;
-}
-
-ol.progtrckr li {
-    display: inline-block;
-    text-align: center;
-    line-height: 3.5em;
-}
-
-ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
-ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
-ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
-ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
-ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
-ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
-ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
-ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
-
-ol.progtrckr li.progtrckr-done {
-    color: black;
-    border-bottom: 4px solid yellowgreen;
-}
-ol.progtrckr li.progtrckr-todo {
-    color: silver; 
-    border-bottom: 4px solid silver;
-}
-
-ol.progtrckr li:after {
-    content: "\00a0\00a0";
-}
-ol.progtrckr li:before {
-    position: relative;
-    bottom: -2.5em;
-    float: left;
-    left: 50%;
-    line-height: 1em;
-}
-ol.progtrckr li.progtrckr-done:before {
-    content: "\2713";
-    color: white;
-    background-color: yellowgreen;
-    height: 2.2em;
-    width: 2.2em;
-    line-height: 2.2em;
-    border: none;
-    border-radius: 2.2em;
-}
-ol.progtrckr li.progtrckr-todo:before {
-    content: "\039F";
-    color: silver;
-    background-color: white;
-    font-size: 2.2em;
-    bottom: -1.2em;
-}
-
-
-.greyBg{ margin-top:20px}
-.inner_msg{
-  clear: both;
-  padding: 10px;
-  margin: 0 auto;
-  width:99%;
-  background-color:#efefef;
-  border:1px solid #ccc;
-  min-height: 150px;
-}
-.inner_msg p{
-  color:#000; font-size:15px;
-  text-align: center;
-
-}
-.list option{
-  margin-top: 10px
-}
-.inboxMain{
-  min-height:400px; background-color:#fff; padding:10px;
-  border:1px solid #ccc
-}
-.inboxRow{
-  border-bottom:1px solid #ccc; padding:10px
-}
-
-</style>
 </head>
 <body>
 <header id="header" class="hidden-xs">
@@ -294,6 +208,11 @@ ol.progtrckr li.progtrckr-todo:before {
 <script type="text/javascript" src="{{Config::get('app.url')}}/theme/js/jquery.nice-select.js"></script>
 <script type="text/javascript" src="{{Config::get('app.url')}}/theme/js/jquery.bootstrap-responsive-tabs.js"></script>
 <script type="text/javascript" src="{{Config::get('app.url')}}/theme/js/zoomsl.js"></script>
+  <script src="{{Config::get('app.url')}}/public/js/expanding.js"></script>
+  <script src="{{Config::get('app.url')}}/public/js/starrr.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript" src="{{Config::get('app.url')}}/theme/js/details.js"></script>
+
 <script type="text/javascript">
   $(document).ready(function(){
         $("#CartMsg").hide();
